@@ -28,15 +28,6 @@
       <li>Featured</li>
     </ul>
     </dir>
-
-    {% if current_user %}
-      <p>Welcome, {{current_user}}</p>
-      <a href="{{logout_url}}">Log Out</a><br>
-    {% else %}
-      <p>Hello from Double Crux!</p>
-      <a href="{{login_url}}">Log In</a> <br>
-    {% endif %}
-
     <br />
 
   </body>
