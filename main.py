@@ -10,6 +10,16 @@ from google.appengine.api import users
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
+'''
+    class User:
+
+
+    class Crux:
+
+
+    class Discussion:
+'''
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         current_user = users.get_current_user()
