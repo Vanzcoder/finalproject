@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 
 <html>
-<a href="/discussion"><button>Create New Discussion</button></a>
   <head>
-    <link type="text/css" rel="stylesheet" href="/stylesheets/styles.css" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/styleshome.css" />
     <title>Double Crux</title>
   </head>
   <body>
+
+    <section>
+        {% if current_user %}
+          <p>Welcome, {{current_user}}</p>
+          <a href="{{logout_url}}">Log Out</a><br>
+        {% else %}
+          <p>Hello from Double Crux!</p>
+          <a href="{{login_url}}">Log In</a> <br>
+        {% endif %}
+      </section>
+
     <h1>Welcome to Double Crux!</h1>
 
-    {% if current_user %}
-      <p>Welcome, {{current_user}}</p>
-      <a href="{{logout_url}}">Log Out</a><br>
-    {% else %}
-      <p>Hello from Double Crux!</p>
-      <a href="{{login_url}}">Log In</a> <br>
-    {% endif %}
+    <dir>
+    <ul>
+      <li>Our Team</li>
+      <li>Profile</li>
+      <li>Featured</li>
+    </ul>
+    </dir>
+
   </body>
+<br>
+<a href="/discussion"><button><h2>Create New Discussion</h2></button></a>
 
 </html>
