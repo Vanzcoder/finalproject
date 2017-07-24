@@ -8,9 +8,16 @@
 
 
   <body>
+
+    {% for crux in cruxes %}
+      Title: {{crux.title}} <br>
+      Author: {{crux.email}} <br>
+      Crux: {{crux.content}} <br> <br>
+    {% endfor %}
+
     <form method="post" action ="/discussion">
-      <p>Title: <input name="Title"></input></p>
-      <p>Add Crux: <textarea name="Content"></textarea>
+      <p>Title: <input name="title"></input></p>
+      <p>Add Crux: <textarea name="content"></textarea>
         <button type="submit">Add Crux</button></p>
     </form>
   </body>
