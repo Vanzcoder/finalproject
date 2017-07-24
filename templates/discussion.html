@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="/stylesheets/styleshome.css" />
     <title>Discussion</title>
   </head>
+
+
   <body>
-    <form method="post" action ="/discussion"?
-      <input name="Title"></input>
+
+    {% for crux in cruxes %}
+      Title: {{crux.title}} <br>
+      Author: {{crux.email}} <br>
+      Crux: {{crux.content}} <br> <br>
+    {% endfor %}
+
+    <form method="post" action ="/discussion">
+      <p>Title: <input name="title"></input></p>
+      <p>Add Crux: <textarea name="content"></textarea>
+        <button type="submit">Add Crux</button></p>
     </form>
-    discussion
   </body>
+
 </html>
