@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/styles.css" />
+    <title>Double Crux</title>
+  </head>
+  <body>
+    <h1>Welcome to Double Crux!</h1>
+
+    {% if current_user %}
+      <p>Welcome, {{current_user}}</p>
+      <a href="{{logout_url}}">Log Out</a><br>
+    {% else %}
+      <p>Hello from Double Crux!</p>
+      <a href="{{login_url}}">Log In</a> <br>
+    {% endif %}
+  </body>
+
+</html>
