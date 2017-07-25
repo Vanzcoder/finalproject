@@ -43,6 +43,10 @@ div {
   z-index: 2;
 }
 
+.popupText {
+  padding: 10px 10px 10px 10px;
+}
+
 
 .introPopup {
   position:relative;
