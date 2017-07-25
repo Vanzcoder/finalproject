@@ -70,7 +70,7 @@ class DiscussionHandler(webapp2.RequestHandler):
         urlsafe_key = self.request.get("key")
 
         #We generate the Actual Key from the urlsafe_key, which is only a String
-        discussion_key = ndb.Key(urlsafe = urlsafe_key)
+        discussion_key = ndb.Key(urlsafe = urlsafe_key) 
 
         #Using the Key object, we're able to access the entire object.
         #Which then allows us to grab the add'l info like the content and author
