@@ -14,6 +14,8 @@ jinja_environment = jinja2.Environment(
 class Discussion(ndb.Model):
     title = ndb.StringProperty()
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
+    user1ID = ndb.StringProperty()
+    user2ID = ndb.StringProperty()
     # We don't yet know what properties a discussion should have, so let's hold off on the properties for now.
 
 
@@ -29,6 +31,12 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         # This is the login information we're currently using, but we might change it later on.
         current_user = users.get_current_user()
+
+        if (current_user == None):
+            current_user_id = 'none'
+        else:
+            current_user_id = current_user.user_id()
+
         logout_url = users.create_logout_url('/')
         login_url = users.create_login_url('/')
 
@@ -39,6 +47,7 @@ class MainHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template('templates/home.html')
         template_vars = {
             "current_user": current_user,
+            "current_user_id": current_user_id,
             "logout_url": logout_url,
             "login_url": login_url,
             "discussions" : discussions,
@@ -48,7 +57,9 @@ class MainHandler(webapp2.RequestHandler):
     # THis allows us to create a new Discussion link on home from the HTML form
     def post(self):
         title = self.request.get('title')
-        discussionObject = Discussion(title=title).put()
+        user1ID = self.request.get('user1ID')
+
+        discussionObject = Discussion(title=title,user1ID=user1ID).put()
         self.redirect('/')
 
 
@@ -88,7 +99,7 @@ class NewCruxHandler(webapp2.RequestHandler):
         #Turn url safe key = key object
         discussion_key = ndb.Key(urlsafe = urlsafe_key)
 
-        #Making the new comment
+        #Making the new comment, the discussion_key tells us which discussion to link the crux to.
         crux = Crux(title=title, content=content, discussion_key = discussion_key)
 
         #Actually putting the object onto our database
