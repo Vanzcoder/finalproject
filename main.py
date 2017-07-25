@@ -120,6 +120,8 @@ class NewCruxHandler(webapp2.RequestHandler):
         self.redirect(url)
 
 
+
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/discussion', DiscussionHandler),
