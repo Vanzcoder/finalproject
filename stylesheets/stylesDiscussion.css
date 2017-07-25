@@ -1,0 +1,18 @@
+.container {
+  display:flex;
+  width: 100%;
+  height: 100%;
+}
+
+.leftBox, .rightBox {
+  flex:1;
+}
+
+.crux {
+  height: 13em;
+
+}
+
+.grid-cell-top {
+  align-self: flex-start;
+}

@@ -3,17 +3,40 @@
 
   <head>
     <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" href="/stylesheets/stylesDiscussion.css"/>
     <title>Discussion</title>
   </head>
 
 
   <body>
 
-    {% for crux in cruxes %}
-      Title: {{crux.title}} <br>
-      Author: {{crux.email}} <br>
-      Crux: {{crux.content}} <br> <br>
-    {% endfor %}
+    <div class="container">
+
+      <div class="leftBox grid-cell-top">
+        {% for crux in cruxes %}
+        <div class = "crux">
+          Title: {{crux.title}}
+          <br />
+          Crux: {{crux.content}}
+          <br />
+          <br/>
+        </div>
+        {% endfor %}
+      </div>
+
+
+      <div class="rightBox grid-cell-top">
+          <div class="crux">Right</div>
+          <div class="crux">Right-side</div>
+          <div class="crux">Right</div>
+      </div>
+
+    </div>
+
+
+
+
+
 
     <form method="post" action ="/discussion">
       <p>Title: <input name="title"></input></p>
