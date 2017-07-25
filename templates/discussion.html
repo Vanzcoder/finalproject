@@ -4,11 +4,20 @@
   <head>
     <meta charset="utf-8">
         <link type="text/css" rel="stylesheet" href="/stylesheets/stylesDiscussion.css"/>
-    <title>Discussion</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="scripts/scriptDiscussion.js"></script>
+    <title>{{discussion.title}}</title>
   </head>
 
 
   <body>
+
+    <div class="overlay"></div>
+
+    <!--The intro popup-->
+    <div class="introPopup">
+      <button class="rightfloat expandButton"></button>
+    </div>
 
     <div class="title">
       <a href="/"><button class="leftfloat"> <-- </button></a>
@@ -23,11 +32,14 @@
       <div class="left">
         {% for item in cruxes %}
           <div class = "text">
-            Title: {{item.title}}
-            <br />
-            Crux: {{item.content}}
-            <br />
+            <p class = "cruxTitle">
+              Title: {{item.title}}
+            </p>
+            <p class = "cruxContent">
+              Crux: {{item.content}}
+            </p>
             <br/>
+            <button class="expandButton rightfloat"></button>
           </div>
           {% endfor %}
         </div>

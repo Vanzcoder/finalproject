@@ -14,6 +14,45 @@ div {
   float:left;
 }
 
+.rightfloat {
+  float:right;
+}
+
+/* Styling for semi-transparent overlay stylings*/
+.overlay {
+  position: fixed;
+
+  /* Hidden by default */
+  display: none;
+
+  /* Full width (cover the whole page) */
+  width: 100%;
+
+  /* Full height (cover the whole page) */
+  height: 100%;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  /* Black background with opacity */
+  background-color: rgba(0,0,0,0.7);
+
+  /* Order of how we want to order them*/
+  z-index: 2;
+}
+
+
+.introPopup {
+  position:relative;
+  display: none;
+  background-color: white;
+
+  /* Order this on top of the overlay*/
+  z-index: 3;
+}
+
 .box {
   display: grid;
   grid-template-columns: 1fr 1fr;
