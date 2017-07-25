@@ -47,7 +47,7 @@ class MainHandler(webapp2.RequestHandler):
 class DiscussionHandler(webapp2.RequestHandler):
     def get(self):
         urlsafe_key = self.request.get('key')
-        discussion_key = ndb.key(urlsafe=urlsafe_key)# urlsafe converts the string into an object
+        discussion_key = ndb.Key(urlsafe=urlsafe_key)# urlsafe converts the string into an object
         discussions = discussion_key.get() # the .get fetches the post by using the unique
 
         # why not this??? Why query one and get the other???
@@ -60,9 +60,8 @@ class DiscussionHandler(webapp2.RequestHandler):
             "discussions": discussions,
             "cruxes": cruxes,
         }
-        template = jinja_environment.get_template('templates/discussion.html')
-        self.response.write(template.render(template_vars))
 
+class CruxHandler(webapp2.RequestHandler):
     def post(self):
         title = self.request.get('title')
         content = self.request.get('content')
@@ -74,6 +73,9 @@ class DiscussionHandler(webapp2.RequestHandler):
         crux.put()
 
         self.redirect('/')
+        
+        template = jinja_environment.get_template('templates/discussion.html')
+        self.response.write(template.render(template_vars))
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
