@@ -66,11 +66,18 @@ class MainHandler(webapp2.RequestHandler):
 # This allows us to show discussions from the link on Home
 class DiscussionHandler(webapp2.RequestHandler):
     def get(self):
+        current_user = users.get_current_user()
+        if (current_user == None):
+            current_user_id = 'none'
+        else:
+            current_user_id = current_user.user_id()
+
+
         #We grab the urlsafe key we got from HTML
         urlsafe_key = self.request.get("key")
 
         #We generate the Actual Key from the urlsafe_key, which is only a String
-        discussion_key = ndb.Key(urlsafe = urlsafe_key) 
+        discussion_key = ndb.Key(urlsafe = urlsafe_key)
 
         #Using the Key object, we're able to access the entire object.
         #Which then allows us to grab the add'l info like the content and author
@@ -81,6 +88,8 @@ class DiscussionHandler(webapp2.RequestHandler):
         cruxes = cruxes.order(-Crux.timestamp).fetch()
 
         template_vars = {
+            "current_user": current_user,
+            "current_user_id": current_user_id,
             "discussion" : discussion,
             "cruxes" : cruxes,
         }
