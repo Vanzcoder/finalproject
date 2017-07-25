@@ -22,7 +22,8 @@
 
     <div class="title">
       <a href="/"><button class="leftfloat"> <-- </button></a>
-      {{discussion.title}}
+      {{discussion.title}} <br>
+
     </div>
 
     <div class="box">
@@ -52,17 +53,20 @@
 
     <br />
 
-    <form method="post" action ="/newcrux">
-      <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
-      Title:
-      <br />
-      <input type="text" name="title" />
-      <br />
-      Content:
-      <br />
-      <textarea name="content"></textarea>
-      <button type="submit">Add Crux</button></p>
-    </form>
+    {% if discussion.user1ID == current_user_id %}
+      <form method="post" action ="/newcrux">
+        <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
+        Title:
+        <br />
+        <input type="text" name="title" />
+        <br />
+        Content:
+        <br />
+        <textarea name="content"></textarea>
+        <button type="submit">Add Crux</button></p>
+      </form>
+    {% endif %}
+
 
   </body>
 
