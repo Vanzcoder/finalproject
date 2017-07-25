@@ -54,13 +54,6 @@ class MainHandler(webapp2.RequestHandler):
         }
         self.response.write(template.render(template_vars))
 
-    # THis allows us to create a new Discussion link on home from the HTML form
-    def post(self):
-        title = self.request.get('title')
-        user1ID = self.request.get('user1ID')
-
-        discussionObject = Discussion(title=title,user1ID=user1ID).put()
-        self.redirect('/')
 
 
 # This allows us to show discussions from the link on Home
@@ -71,8 +64,6 @@ class DiscussionHandler(webapp2.RequestHandler):
             current_user_id = 'none'
         else:
             current_user_id = current_user.user_id()
-
-
         #We grab the urlsafe key we got from HTML
         urlsafe_key = self.request.get("key")
 
@@ -119,9 +110,31 @@ class NewCruxHandler(webapp2.RequestHandler):
         #Sending the response back:
         self.redirect(url)
 
+class CreateDiscussionHandler(webapp2.RequestHandler):
+    def get(self):
+        current_user = users.get_current_user()
+        if (current_user == None):
+            current_user_id = 'none'
+        else:
+            current_user_id = current_user.user_id()
+
+        template_vars = {
+            "current_user_id": current_user_id,
+        }
+
+        template = jinja_environment.get_template('templates/creatediscussion.html')
+        self.response.write(template.render(template_vars))
+    def post(self):
+        # THis allows us to create a new Discussion link on home from the HTML form
+        title = self.request.get('title')
+        user1ID = self.request.get('user1ID')
+
+        discussionObject = Discussion(title=title,user1ID=user1ID).put()
+        self.redirect('/') #we can change this to redirect to discussion page later
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/discussion', DiscussionHandler),
     ('/newcrux', NewCruxHandler),
+    ('/creatediscussion', CreateDiscussionHandler),
 ], debug=True)
