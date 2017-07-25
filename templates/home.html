@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <link type="text/css" rel="stylesheet" href="/stylesheets/styleshome.css" />
+    <!--link type="text/css" rel="stylesheet" href="/stylesheets/styleshome.css" -->
     <title>Double Crux</title>
   </head>
 
@@ -30,16 +30,22 @@
     </dir>
     <br />
 
+  <!-- Use of discussion and discussionS is a very bad idea. I'm changing it to item instead-->
+    {% for item in discussions %}
+      <a href="/discussion?key={{item.key.urlsafe()}}"><button>{{item.title}}</button></a>
+      <br />
+      <br />
+    {% endfor %}
+
+    <br />
+
+    <form method="post" action ="/">
+      Title:
+      <br />
+      <input type="text" name="title" />
+      <button type="submit">Add Discussion</button></p>
+    </form>
+
   </body>
-
-<br>
-<a href="/discussion"><button><h2>Create New Discussion</h2></button></a>
-<br>
-
-{% for discussion in discussions %}
-  <a href="/discussion?key={{discussion.key.urlsafe()}}"><button><h2>{{discussion.title}}</h2></button></a>
-{% endfor %}
-
-
 
 </html>

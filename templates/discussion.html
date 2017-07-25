@@ -10,39 +10,47 @@
 
   <body>
 
-    <div class="container">
+    <div class="title">
+      <a href="/"><button class="leftfloat"> <-- </button></a>
+      {{discussion.title}}
+    </div>
 
-      <div class="leftBox grid-cell-top">
-        {% for crux in cruxes %}
-        <div class = "crux">
-          Title: {{crux.title}}
-          <br />
-          Crux: {{crux.content}}
-          <br />
-          <br/>
+    <div class="box">
+
+      <div class="left">
+        {% for item in cruxes %}
+          <div class = "text">
+            Title: {{item.title}}
+            <br />
+            Crux: {{item.content}}
+            <br />
+            <br/>
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
-      </div>
 
 
-      <div class="rightBox grid-cell-top">
-          <div class="crux">Right</div>
-          <div class="crux">Right-side</div>
-          <div class="crux">Right</div>
+      <div class="right">
+          <div class="text">Right Text</div>
+          <div class="text">Right Text</div>
       </div>
 
     </div>
 
-    <form method="post" action ="/discussion">
-      <p>Question of Discussion: <input name="discussiontitle"></input></p>
-        <button type="submit">Add Crux</button></p>
+    <br />
+
+    <form method="post" action ="/newcrux">
+      <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
+      Title:
+      <br />
+      <input type="text" name="title" />
+      <br />
+      Content:
+      <br />
+      <textarea name="content"></textarea>
+      <button type="submit">Add Crux</button></p>
     </form>
 
-    <form method="post" action ="/discussion">
-      <p>Title: <input name="title"></input></p>
-      <p>Add Crux: <textarea name="content"></textarea>
-        <button type="submit">Add Crux</button></p>
-    </form>
   </body>
 
 </html>

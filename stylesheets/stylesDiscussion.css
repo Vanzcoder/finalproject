@@ -1,18 +1,33 @@
-.container {
-  display:flex;
-  width: 100%;
-  height: 100%;
+.title {
+  text-align: center;
+  background-color: white;
+  position: sticky;
+  top: 0px;
+  padding: 1em 1em 1em 1em
 }
 
-.leftBox, .rightBox {
-  flex:1;
+div {
+    overflow-x: scroll;
 }
 
-.crux {
-  height: 13em;
-
+.leftfloat {
+  float:left;
 }
 
-.grid-cell-top {
-  align-self: flex-start;
+.box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 15px;
+  background-color: white;
+}
+
+.text {
+  height: 200px;
+  background-color: lightblue;
+  margin-bottom: 15px;
+  padding: 10px 10px 10px 10px;
+}
+
+.text:hover {
+  background-color: green;
 }
