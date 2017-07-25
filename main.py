@@ -21,7 +21,7 @@ class Discussion(ndb.Model):
     post_time = ndb.DateTimeProperty(auto_now_add=True)
     title = ndb.StringProperty()
     dicussion_key = ndb.KeyProperty()
-    
+
 #
 #     class User:
 
@@ -40,25 +40,25 @@ class MainHandler(webapp2.RequestHandler):
             "current_user": current_user,
             "logout_url": logout_url,
             "login_url": login_url,
-            "discussions": discussions
+            "discussions": discussions,
         }
         self.response.write(template.render(template_vars))
-
-
-
 
 class DiscussionHandler(webapp2.RequestHandler):
     def get(self):
         urlsafe_key = self.request.get('key')
-        discussion_key = ndb.Key(urlsafe=urlsafe_key)
-        discussions = discussion_key.get()
+        discussion = ndb.Key(urlsafe=urlsafe_key).get() # urlsafe converts the string into an object
+            # the .get fetches the post by using the unique
+
+        # why not this??? Why query one and get the other???
+        # discussion = Discussion.query().order(Discussion.post_time).fetch()
 
         crux_query = Crux.query().order(Crux.post_time)
         cruxes = crux_query.fetch()
 
         template_vars = {
-            "discussions": discussions,
-            "cruxes": cruxes
+            "discussions": discussion,
+            "cruxes": cruxes,
         }
         template = jinja_environment.get_template('templates/discussion.html')
         self.response.write(template.render(template_vars))
