@@ -16,23 +16,31 @@ class Crux(ndb.Model):
     email = ndb.StringProperty()
     post_time = ndb.DateTimeProperty(auto_now_add=True)
 
-'''
-    class User:
+class Discussion(ndb.Model):
+    author = ndb.StringProperty()
+    post_time = ndb.DateTimeProperty(auto_now_add=True)
+    title = ndb.StringProperty()
+    dicussion_key = ndb.KeyProperty()
+    
+#
+#     class User:
 
-
-    class Discussion:
-'''
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+        discussion_query = Discussion.query().order(Discussion.post_time)
+        discussions = discussion_query.fetch()
+
         current_user = users.get_current_user()
         logout_url = users.create_logout_url('/')
         login_url = users.create_login_url('/')
+
         template = jinja_environment.get_template('templates/home.html')
         template_vars = {
             "current_user": current_user,
             "logout_url": logout_url,
             "login_url": login_url,
+            "discussions": discussions
         }
         self.response.write(template.render(template_vars))
 
@@ -41,13 +49,20 @@ class MainHandler(webapp2.RequestHandler):
 
 class DiscussionHandler(webapp2.RequestHandler):
     def get(self):
+        urlsafe_key = self.request.get('key')
+        discussion_key = ndb.Key(urlsafe=urlsafe_key)
+        discussions = discussion_key.get()
+
         crux_query = Crux.query().order(Crux.post_time)
         cruxes = crux_query.fetch()
+
         template_vars = {
+            "discussions": discussions,
             "cruxes": cruxes
         }
         template = jinja_environment.get_template('templates/discussion.html')
         self.response.write(template.render(template_vars))
+
     def post(self):
         title = self.request.get('title')
         content = self.request.get('content')
@@ -58,7 +73,7 @@ class DiscussionHandler(webapp2.RequestHandler):
         crux = Crux(title=title, content=content, email=email)
         crux.put()
 
-        self.redirect('/discussion')
+        self.redirect('/')
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),

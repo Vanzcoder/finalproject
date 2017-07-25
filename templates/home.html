@@ -41,6 +41,11 @@
 
   </body>
 <br>
-<a href="/discussion"><button><h2>Create New Discussion</h2></button></a>
+
+{% for discussion in discussions %}
+  <a href="/discussion?key={{discussion.key.urlsafe()}}"><button><h2>{{discussion.title}}</h2></button></a>
+{% endfor %}
+
+
 
 </html>
