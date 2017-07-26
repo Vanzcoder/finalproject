@@ -143,6 +143,7 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
 
         template = jinja_environment.get_template('templates/creatediscussion.html')
         self.response.write(template.render(template_vars))
+
     def post(self):
         # THis allows us to create a new Discussion link on home from the HTML form
         title = self.request.get('title')
@@ -151,6 +152,7 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
 
         profile_query = Profile.query().filter(Profile.email == user2email)
         user2 = profile_query.get()
+        
         if not user2:
             self.redirect('/')# ***redirect to error page
         else:
