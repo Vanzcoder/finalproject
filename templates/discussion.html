@@ -34,6 +34,7 @@
         Contributor 1: {{user1.email}}
 
         {% for item in cruxesByUser1 %}
+
           {% if item.onHold %}
             <div class = "text onHold">
               {% if discussion.user2ID == current_user_id %}
@@ -41,6 +42,14 @@
                   <button class="expandButton rightfloat">X</button>
                   <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
                   <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+                  <form action="/recurse" method="post">
+                    <input type="hidden" name="userID1" value="{{ discussion.user1ID }}" />
+                    <input type="hidden" name="userID2" value="{{ discussion.user2ID }}" />
+                    <input type="hidden" name="crux_title" value="{{ item.title }}" />
+                    <input type="hidden" name="subdiscussion_key" value="{{ item.subdiscussion_key }}" />
+                    <input type="hidden" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}" />
+                    <button type="submit" class="rightfloat">R</button>
+                  </form>
                 </div>
               {% endif %}
               <p class = "cruxTitle">

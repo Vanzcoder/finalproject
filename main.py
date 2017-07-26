@@ -32,6 +32,7 @@ class Crux(ndb.Model):
     userID = ndb.StringProperty()
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
     discussion_key = ndb.KeyProperty(kind=Discussion)
+    subdiscussion_key = ndb.KeyProperty(kind=Discussion)
 
 
 
@@ -131,8 +132,9 @@ class NewCruxHandler(webapp2.RequestHandler):
         current_user = users.get_current_user()
         current_user_id = current_user.user_id()
 
-        #Making the new comment, the discussion_key tells us which discussion to link the crux to.
-        crux = Crux(title=title, content=content, onHold= False, onAccept=False, userID = current_user_id, discussion_key = discussion_key)
+        # Making the new comment, the discussion_key tells us which discussion to link the crux to.
+        # Default of subdiscussion_key will be none
+        crux = Crux(title=title, content=content, onHold= False, onAccept=False, userID = current_user_id, discussion_key = discussion_key, subdiscussion_key = None)
 
         #Actually putting the object onto our database
         crux.put()
@@ -214,6 +216,41 @@ class OnAcceptHandler(webapp2.RequestHandler):
         crux.put()
 
 
+
+class RecurseHandler(webapp2.RequestHandler):
+
+    # At some point we need to convert a key string into an actual Key.
+
+    def post(self):
+        subdiscussion_key = self.request.get("subdiscussion_key")
+
+        if (subdiscussion_key == None):
+            url = '/discussion?key=' + str(subdiscussion_key)
+            self.redirect("/subdiscussion_keyEXISTS")
+        else:
+            title = self.request.get("crux_title")
+            user1ID = self.request.get("user1ID")
+            user2ID = self.request.get("user2ID")
+            discussionObject = Discussion(title=title, user1ID=user1ID, user2ID=user2ID)
+            discussionObject.put()
+
+            # The urlsafe_key of the new discussion
+            urlsafe_key = discussionObject.key.urlsafe()
+            url = '/discussion?key=' + str(urlsafe_key)
+
+            crux_urlsafe_key = self.request.get("crux_urlsafe_key")
+            # Need the urlsafe_key in the form where we access this handler
+            crux = ndb.Key(urlsafe=crux_urlsafe_key).get()
+
+            crux.subdiscussion_key = urlsafe_key
+
+            # Updates the crux object
+            crux.put()
+
+            # redirects us to the new recursed, crux
+            self.redirect("/subdiscussion_keyNOT")
+
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/discussion', DiscussionHandler),
@@ -222,4 +259,5 @@ app = webapp2.WSGIApplication([
     ('/discussiononhold', OnHoldHandler),
     ('/onhold', OnHoldHandler),
     ('/onaccept', OnAcceptHandler),
+    ('/recurse', RecurseHandler),
 ], debug=True)
