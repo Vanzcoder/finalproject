@@ -12,11 +12,12 @@
 
   <body>
 
+    <!-- Dark overlay for popup-->
     <div class="overlay"></div>
 
     <!--The intro popup-->
     <div class="cruxPopup">
-      <button class="rightfloat closeExpandButton">X</button>
+      <button class="rightfloat expandButton">X</button>
       <div class="popupText"></div>
     </div>
 
@@ -31,7 +32,7 @@
   <!--What's happening here is that we're running a conditional within our for loop to check if the OnHold boolean is True. If so, then we don't initialize it with the add'l CSS class "onHold", which is responsible for the additional styling changes-->
       <div class="left">
 
-        {% for item in cruxes %}
+        {% for item in cruxesByUser1 %}
           {% if item.onHold %}
             <div class = "text onHold">
               <div class="buttonBar">
@@ -78,15 +79,64 @@
           </div>
           {% endif %}
         {% endfor %}
+
         </div>
 
 
       <div class="right">
-          <div class="text">Right Text</div>
-          <div class="text">Right Text</div>
+
+        {% for item in cruxesByUser2 %}
+          {% if item.onHold %}
+            <div class = "text onHold">
+              <div class="buttonBar">
+                <button class="expandButton rightfloat">X</button>
+                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
+                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+              </div>
+              <p class = "cruxTitle">
+                Title: {{item.title}}
+              </p>
+              <p class = "cruxContent">
+                Crux: {{item.content}}
+              </p>
+            </div>
+
+          {% elif item.onAccept %}
+            <div class = "text onAccept">
+              <div class="buttonBar">
+                <button class="expandButton rightfloat">X</button>
+                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
+                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+              </div>
+              <p class = "cruxTitle">
+                Title: {{item.title}}
+              </p>
+              <p class = "cruxContent">
+                Crux: {{item.content}}
+              </p>
+            </div>
+
+          {% else %}
+          <div class = "text">
+            <div class="buttonBar">
+              <button class="expandButton rightfloat">X</button>
+              <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
+              <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+            </div>
+            <p class = "cruxTitle">
+              Title: {{item.title}}
+            </p>
+            <p class = "cruxContent">
+              Crux: {{item.content}}
+            </p>
+          </div>
+          {% endif %}
+        {% endfor %}
+        
       </div>
 
     </div>
+
 
     <br />
 

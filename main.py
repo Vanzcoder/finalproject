@@ -16,10 +16,12 @@ class Discussion(ndb.Model):
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
     user1ID = ndb.StringProperty()
     user2ID = ndb.StringProperty()
-    # We don't yet know what properties a discussion should have, so let's hold off on the properties for now.
+
+
 class Profile(ndb.Model):
     email = ndb.StringProperty()
     userID = ndb.StringProperty()
+
 
 # We're defining a crux model along with its properties. These will be the "sub-sections", or additional subpoints to our arguments.
 class Crux(ndb.Model):
@@ -27,8 +29,10 @@ class Crux(ndb.Model):
     content = ndb.StringProperty()
     onHold = ndb.BooleanProperty()
     onAccept = ndb.BooleanProperty()
+    userID = ndb.StringProperty()
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
     discussion_key = ndb.KeyProperty(kind=Discussion)
+
 
 
 class MainHandler(webapp2.RequestHandler):
@@ -92,18 +96,21 @@ class DiscussionHandler(webapp2.RequestHandler):
         discussion = discussion_key.get()
 
         #Filtering, ordering, and fetching our cruxes for each discussion.
-        cruxes = Crux.query().filter(Crux.discussion_key == discussion_key)
-        cruxes = cruxes.order(-Crux.timestamp).fetch()
+        cruxesByUser1 = Crux.query().filter(Crux.discussion_key == discussion_key, Crux.userID == discussion.user1ID)
+        cruxesByUser2 = Crux.query().filter(Crux.discussion_key == discussion_key, Crux.userID == discussion.user2ID)
+
 
         template_vars = {
             "current_user": current_user,
             "current_user_id": current_user_id,
             "discussion" : discussion,
-            "cruxes" : cruxes,
+            "cruxesByUser1" : cruxesByUser1,
+            "cruxesByUser2" : cruxesByUser2,
         }
 
         template = jinja_environment.get_template('templates/discussion.html')
         self.response.write(template.render(template_vars))
+
 
 
 # This allows us to make new cruxes, similar to the comments handler we did in the blog example.
@@ -116,8 +123,12 @@ class NewCruxHandler(webapp2.RequestHandler):
         #Turn url safe key = key object
         discussion_key = ndb.Key(urlsafe = urlsafe_key)
 
+        # If you're at this stage, you've already logged in
+        current_user = users.get_current_user()
+        current_user_id = current_user.user_id()
+
         #Making the new comment, the discussion_key tells us which discussion to link the crux to.
-        crux = Crux(title=title, content=content, onHold= False, discussion_key = discussion_key)
+        crux = Crux(title=title, content=content, onHold= False, onAccept=False, userID = current_user_id, discussion_key = discussion_key)
 
         #Actually putting the object onto our database
         crux.put()
@@ -126,6 +137,7 @@ class NewCruxHandler(webapp2.RequestHandler):
 
         #Sending the response back:
         self.redirect(url)
+
 
 
 # Handler that allows us to create a new discussion
@@ -152,7 +164,6 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
 
         profile_query = Profile.query().filter(Profile.email == user2email)
         user2 = profile_query.get()
-        
         if not user2:
             self.redirect('/')# ***redirect to error page
         else:
