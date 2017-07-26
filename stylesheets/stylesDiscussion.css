@@ -6,10 +6,6 @@
   padding: 1em 1em 1em 1em
 }
 
-div {
-    overflow-x: scroll;
-}
-
 .leftfloat {
   float:left;
 }
@@ -18,7 +14,12 @@ div {
   float:right;
 }
 
-/* Styling for semi-transparent overlay stylings*/
+/*This is the styling for when the page is selected*/
+.onHold {
+  box-shadow: 0px 0px 0px 5px blue inset;
+}
+
+/* Styling for semi-transparent overlay stylings */
 .overlay {
   position: fixed;
 
@@ -37,40 +38,51 @@ div {
   bottom: 0;
 
   /* Black background with opacity */
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0,0,0,0.9);
 
   /* Order of how we want to order them*/
   z-index: 2;
 }
 
+/* Some basic styling for the popup */
 .popupText {
   padding: 10px 10px 10px 10px;
 }
 
-
-.introPopup {
+/* The popup first starts out invisible */
+.cruxPopup {
   position:relative;
   display: none;
   background-color: white;
-
+  margin: 0 auto;
+  width: 90%;
   /* Order this on top of the overlay*/
   z-index: 3;
 }
 
+
+/* This is where the actual grid layout comes in */
 .box {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 15px;
+  /* grid-row-gap: 15px; */
   background-color: white;
 }
 
 .text {
   height: 200px;
   background-color: lightblue;
-  margin-bottom: 15px;
   padding: 10px 10px 10px 10px;
+  margin-bottom: 10px;
+  overflow-y: scroll;
+}
+
+/* Removes the scrollbar, but keeps it functional*/
+::-webkit-scrollbar {
+  display:none;
 }
 
 .text:hover {
-  background-color: green;
+  background-color: pink;
 }

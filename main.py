@@ -129,7 +129,7 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
         title = self.request.get('title')
         user1ID = self.request.get('user1ID')
 
-        discussionObject = Discussion(title=title,user1ID=user1ID).put()
+        discussionObject = Discussion(title=title,user1ID=user1IDf).put()
         self.redirect('/') #we can change this to redirect to discussion page later
 
 
