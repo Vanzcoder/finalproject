@@ -17,7 +17,9 @@ class Discussion(ndb.Model):
     user1ID = ndb.StringProperty()
     user2ID = ndb.StringProperty()
     # We don't yet know what properties a discussion should have, so let's hold off on the properties for now.
-
+class Profile(ndb.Model):
+    email = ndb.StringProperty()
+    userID = ndb.StringProperty()
 
 # We're defining a crux model along with its properties. These will be the "sub-sections", or additional subpoints to our arguments.
 class Crux(ndb.Model):
@@ -41,6 +43,18 @@ class MainHandler(webapp2.RequestHandler):
         logout_url = users.create_logout_url('/')
         login_url = users.create_login_url('/')
 
+        userID = current_user_id
+        profile_query = Profile.query().filter(Profile.userID == userID)
+        currentprofile = profile_query.get()
+
+        if not currentprofile:
+            if (current_user == None):
+                email = 'none'
+            else:
+                email = current_user.email()
+                profile = Profile(userID=userID, email=email)
+                profile.put()
+
         # On load, we're querying the database for all existing Discussion objects, fetching them, and we're passing them in to Jinja.
         discussions = Discussion.query().order(Discussion.timestamp).fetch()
 
@@ -52,6 +66,7 @@ class MainHandler(webapp2.RequestHandler):
             "logout_url": logout_url,
             "login_url": login_url,
             "discussions" : discussions,
+            "currentprofile": currentprofile,
         }
         self.response.write(template.render(template_vars))
 
@@ -130,7 +145,14 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
         # THis allows us to create a new Discussion link on home from the HTML form
         title = self.request.get('title')
         user1ID = self.request.get('user1ID')
-        user2ID = self.request.get('user2ID')
+        user2email = self.request.get('user2email')
+
+        profile_query = Profile.query().filter(Profile.email == user2email)
+        user2 = profile_query.get()
+        if not user2:
+            self.redirect('/')# ***redirect to error page
+        else:
+            user2ID = user2.userID
 
         discussionObject = Discussion(title=title,user1ID=user1ID, user2ID=user2ID).put()
         self.redirect('/') #we can change this to redirect to discussion page later

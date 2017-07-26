@@ -69,7 +69,7 @@
 
     <br />
 
-    {% if discussion.user1ID == current_user_id %}
+    {% if discussion.user1ID == current_user_id or discussion.user2ID ==  current_user_id  %}
       <form method="post" action ="/newcrux">
         <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
         Title:
