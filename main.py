@@ -23,6 +23,7 @@ class Discussion(ndb.Model):
 class Crux(ndb.Model):
     title = ndb.StringProperty()
     content = ndb.StringProperty()
+    onHold = ndb.BooleanProperty()
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
     discussion_key = ndb.KeyProperty(kind=Discussion)
 
@@ -100,7 +101,7 @@ class NewCruxHandler(webapp2.RequestHandler):
         discussion_key = ndb.Key(urlsafe = urlsafe_key)
 
         #Making the new comment, the discussion_key tells us which discussion to link the crux to.
-        crux = Crux(title=title, content=content, discussion_key = discussion_key)
+        crux = Crux(title=title, content=content, onHold= False, discussion_key = discussion_key)
 
         #Actually putting the object onto our database
         crux.put()
@@ -109,6 +110,7 @@ class NewCruxHandler(webapp2.RequestHandler):
 
         #Sending the response back:
         self.redirect(url)
+
 
 class CreateDiscussionHandler(webapp2.RequestHandler):
     def get(self):
@@ -134,10 +136,28 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
         self.redirect('/') #we can change this to redirect to discussion page later
 
 
+class OnHoldHandler(webapp2.RequestHandler):
+    def post(self):
+        # === 1: Get info from the request. ===
+        urlsafe_key = self.request.get('crux_key')
+
+        # === 2: Interact with the database. ===
+
+        # Use the URLsafe key to get the photo from the DB.
+        crux = ndb.Key(urlsafe=urlsafe_key).get()
+
+        # Update the boolean
+        crux.onHold = not crux.onHold
+
+        # Store it in the database, updated
+        crux.put()
+
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/discussion', DiscussionHandler),
     ('/newcrux', NewCruxHandler),
     ('/creatediscussion', CreateDiscussionHandler),
+    ('/discussiononhold', OnHoldHandler),
+    ('/onhold', OnHoldHandler),
 ], debug=True)
