@@ -62,7 +62,7 @@
 
 /* The popup first starts out invisible */
 .cruxPopup {
-  position:relative;
+  position: relative;
   display: none;
   background-color: white;
   margin: 0 auto;
