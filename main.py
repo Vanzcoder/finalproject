@@ -128,8 +128,9 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
         # THis allows us to create a new Discussion link on home from the HTML form
         title = self.request.get('title')
         user1ID = self.request.get('user1ID')
+        user2ID = self.request.get('user2ID')
 
-        discussionObject = Discussion(title=title,user1ID=user1ID).put()
+        discussionObject = Discussion(title=title,user1ID=user1ID, user2ID=user2ID).put()
         self.redirect('/') #we can change this to redirect to discussion page later
 
 app = webapp2.WSGIApplication([
