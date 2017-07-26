@@ -16,7 +16,7 @@
 
     <!--The intro popup-->
     <div class="cruxPopup">
-      <button class="rightfloat expandButton">X</button>
+      <button class="rightfloat closeExpandButton">X</button>
       <div class="popupText"></div>
     </div>
 
@@ -34,8 +34,26 @@
         {% for item in cruxes %}
           {% if item.onHold %}
             <div class = "text onHold">
-              <button class="expandButton rightfloat">X</button>
-              <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">O</button>
+              <div class="buttonBar">
+                <button class="expandButton rightfloat">X</button>
+                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
+                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+              </div>
+              <p class = "cruxTitle">
+                Title: {{item.title}}
+              </p>
+              <p class = "cruxContent">
+                Crux: {{item.content}}
+              </p>
+            </div>
+
+          {% elif item.onAccept %}
+            <div class = "text onAccept">
+              <div class="buttonBar">
+                <button class="expandButton rightfloat">X</button>
+                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
+                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+              </div>
               <p class = "cruxTitle">
                 Title: {{item.title}}
               </p>
@@ -46,8 +64,11 @@
 
           {% else %}
           <div class = "text">
-            <button class="expandButton rightfloat">X</button>
-            <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">O</button>
+            <div class="buttonBar">
+              <button class="expandButton rightfloat">X</button>
+              <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
+              <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+            </div>
             <p class = "cruxTitle">
               Title: {{item.title}}
             </p>
@@ -69,7 +90,12 @@
 
     <br />
 
+<<<<<<< HEAD
     {% if discussion.user1ID == current_user_id or discussion.user2ID ==  current_user_id  %}
+=======
+
+    {% if discussion.user1ID == current_user_id %}
+>>>>>>> 2c80e2e00b0fa6e9c1344abbf33a79c41d452251
       <form method="post" action ="/newcrux">
         <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
         Title:

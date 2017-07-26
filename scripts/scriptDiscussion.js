@@ -6,6 +6,7 @@ var toggleCheck = true;
 function clickExpand() {
   var button = $(this);
 
+  /* Searches through multiple parents */
   var crux = $(this).parents(".text").children(".cruxContent").html();
 
   //Hacky JS for now, formatting can come later
@@ -15,12 +16,31 @@ function clickExpand() {
   $(".cruxPopup").toggle();
 }
 
-$(".expandButton").click(clickExpand);
+function clickExpand2() {
+  var button = $(this);
+
+  /* Searches through multiple parents */
+  var crux = $(this).parents(".text").children(".cruxContent").html();
+
+  /* How far you've scrolled */
+  var topVal = $(window).scrollTop();
+
+  //Hacky JS for now, formatting can come later
+  $(".cruxPopup").children(".popupText").html(crux);
+
+  /* Attempts to get popup to show up centered on page, but not yet working */
+  $(".cruxPopup").css({top : topVal});
+
+  $(".overlay").toggle();
+  $(".cruxPopup").toggle();
+}
+
+/* Button selectors*/
+$(".expandButton").click(clickExpand2);
+$(".closeExpandButton").click(clickExpand);
 
 
-function clickButton() {
-
-  // Here, "this" is the button that the user clicked.
+function onHold() {
   var button = $(this);
 
   // Get the URLsafe key from the button value.
@@ -30,10 +50,25 @@ function clickButton() {
   $.post('/onhold', {"crux_key": urlsafeKey}, function(response) {
   });
 
-  $(this).parent().toggleClass("onHold");
+  $(this).parent().parent().toggleClass("onHold");
 }
 
-$(".onHoldButton").click(clickButton);
+$(".onHoldButton").click(onHold);
 
+
+function onAccept() {
+  var button = $(this);
+
+  // Get the URLsafe key from the button value.
+  var urlsafeKey = $(button).val();
+
+  // Send a POST request and handle the response.
+  $.post('/onaccept', {"crux_key": urlsafeKey}, function(response) {
+  });
+
+  $(this).parent().parent().toggleClass("onAccept");
+}
+
+$(".onAcceptButton").click(onAccept);
 
 });

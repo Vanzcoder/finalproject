@@ -3,7 +3,13 @@
   background-color: white;
   position: sticky;
   top: 0px;
-  padding: 1em 1em 1em 1em
+  padding: 1em 1em 1em 1em;
+  z-index: 2;
+}
+
+.buttonBar {
+  position: sticky;
+  top: 0px;
 }
 
 .leftfloat {
@@ -16,7 +22,12 @@
 
 /*This is the styling for when the page is selected*/
 .onHold {
-  box-shadow: 0px 0px 0px 5px blue inset;
+  box-shadow: 0px 0px 0px 5px red inset;
+}
+
+/*This is the styling for when the page is selected*/
+.onAccept {
+  box-shadow: 0px 0px 0px 5px green inset;
 }
 
 /* Styling for semi-transparent overlay stylings */
@@ -41,7 +52,7 @@
   background-color: rgba(0,0,0,0.9);
 
   /* Order of how we want to order them*/
-  z-index: 2;
+  z-index: 3;
 }
 
 /* Some basic styling for the popup */
@@ -56,8 +67,9 @@
   background-color: white;
   margin: 0 auto;
   width: 90%;
+  height: 50em;
   /* Order this on top of the overlay*/
-  z-index: 3;
+  z-index: 4;
 }
 
 
