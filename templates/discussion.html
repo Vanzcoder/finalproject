@@ -31,15 +31,18 @@
 
   <!--What's happening here is that we're running a conditional within our for loop to check if the OnHold boolean is True. If so, then we don't initialize it with the add'l CSS class "onHold", which is responsible for the additional styling changes-->
       <div class="left">
+        Contributor 1: {{user1.email}}
 
         {% for item in cruxesByUser1 %}
           {% if item.onHold %}
             <div class = "text onHold">
-              <div class="buttonBar">
-                <button class="expandButton rightfloat">X</button>
-                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
-                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
-              </div>
+              {% if discussion.user2ID == current_user_id %}
+                <div class="buttonBar">
+                  <button class="expandButton rightfloat">X</button>
+                  <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
+                  <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+                </div>
+              {% endif %}
               <p class = "cruxTitle">
                 Title: {{item.title}}
               </p>
@@ -50,11 +53,13 @@
 
           {% elif item.onAccept %}
             <div class = "text onAccept">
-              <div class="buttonBar">
-                <button class="expandButton rightfloat">X</button>
-                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
-                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
-              </div>
+              {% if discussion.user2ID == current_user_id %}
+                <div class="buttonBar">
+                  <button class="expandButton rightfloat">X</button>
+                  <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
+                  <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+                </div>
+              {% endif %}
               <p class = "cruxTitle">
                 Title: {{item.title}}
               </p>
@@ -65,11 +70,13 @@
 
           {% else %}
           <div class = "text">
-            <div class="buttonBar">
-              <button class="expandButton rightfloat">X</button>
-              <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
-              <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
-            </div>
+            {% if discussion.user2ID == current_user_id %}
+              <div class="buttonBar">
+                <button class="expandButton rightfloat">X</button>
+                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
+                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+              </div>
+            {% endif %}
             <p class = "cruxTitle">
               Title: {{item.title}}
             </p>
@@ -84,15 +91,17 @@
 
 
       <div class="right">
-
+        Contributor 2: {{user2.email}}
         {% for item in cruxesByUser2 %}
           {% if item.onHold %}
             <div class = "text onHold">
-              <div class="buttonBar">
-                <button class="expandButton rightfloat">X</button>
-                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
-                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
-              </div>
+              {% if discussion.user1ID == current_user_id %}
+                <div class="buttonBar">
+                  <button class="expandButton rightfloat">X</button>
+                  <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
+                  <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+                </div>
+              {% endif %}
               <p class = "cruxTitle">
                 Title: {{item.title}}
               </p>
@@ -103,11 +112,13 @@
 
           {% elif item.onAccept %}
             <div class = "text onAccept">
-              <div class="buttonBar">
-                <button class="expandButton rightfloat">X</button>
-                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
-                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
-              </div>
+              {% if discussion.user1ID == current_user_id %}
+                <div class="buttonBar">
+                  <button class="expandButton rightfloat">X</button>
+                  <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
+                  <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+                </div>
+              {% endif %}
               <p class = "cruxTitle">
                 Title: {{item.title}}
               </p>
@@ -118,11 +129,14 @@
 
           {% else %}
           <div class = "text">
-            <div class="buttonBar">
-              <button class="expandButton rightfloat">X</button>
-              <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
-              <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
-            </div>
+            {% if discussion.user1ID == current_user_id %}
+              <div class="buttonBar">
+                <button class="expandButton rightfloat">X</button>
+                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
+                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+              </div>
+            {% endif %}
+
             <p class = "cruxTitle">
               Title: {{item.title}}
             </p>
@@ -132,7 +146,7 @@
           </div>
           {% endif %}
         {% endfor %}
-        
+
       </div>
 
     </div>

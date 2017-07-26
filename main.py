@@ -99,8 +99,12 @@ class DiscussionHandler(webapp2.RequestHandler):
         cruxesByUser1 = Crux.query().filter(Crux.discussion_key == discussion_key, Crux.userID == discussion.user1ID)
         cruxesByUser2 = Crux.query().filter(Crux.discussion_key == discussion_key, Crux.userID == discussion.user2ID)
 
+        user1 = Profile.query().filter(Profile.userID == discussion.user1ID).get()
+        user2 = Profile.query().filter(Profile.userID == discussion.user2ID).get()
 
         template_vars = {
+            "user1":user1,
+            "user2":user2,
             "current_user": current_user,
             "current_user_id": current_user_id,
             "discussion" : discussion,
