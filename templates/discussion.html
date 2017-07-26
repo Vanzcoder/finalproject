@@ -15,7 +15,7 @@
     <div class="overlay"></div>
 
     <!--The intro popup-->
-    <div class="introPopup">
+    <div class="cruxPopup">
       <button class="rightfloat expandButton">X</button>
       <div class="popupText"></div>
     </div>
@@ -28,19 +28,35 @@
 
     <div class="box">
 
+  <!--What's happening here is that we're running a conditional within our for loop to check if the OnHold boolean is True. If so, then we don't initialize it with the add'l CSS class "onHold", which is responsible for the additional styling changes-->
       <div class="left">
+
         {% for item in cruxes %}
+          {% if item.onHold %}
+            <div class = "text onHold">
+              <button class="expandButton rightfloat">X</button>
+              <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">O</button>
+              <p class = "cruxTitle">
+                Title: {{item.title}}
+              </p>
+              <p class = "cruxContent">
+                Crux: {{item.content}}
+              </p>
+            </div>
+
+          {% else %}
           <div class = "text">
+            <button class="expandButton rightfloat">X</button>
+            <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">O</button>
             <p class = "cruxTitle">
               Title: {{item.title}}
             </p>
             <p class = "cruxContent">
               Crux: {{item.content}}
             </p>
-            <br/>
-            <button class="expandButton rightfloat"></button>
           </div>
-          {% endfor %}
+          {% endif %}
+        {% endfor %}
         </div>
 
 
