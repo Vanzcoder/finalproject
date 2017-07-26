@@ -155,8 +155,7 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
             self.redirect('/')# ***redirect to error page
         else:
             user2ID = user2.userID
-
-        discussionObject = Discussion(title=title,user1ID=user1ID, user2ID=user2ID).put()
+            discussionObject = Discussion(title=title,user1ID=user1ID, user2ID=user2ID).put()
         self.redirect('/') #we can change this to redirect to discussion page later
 
 
