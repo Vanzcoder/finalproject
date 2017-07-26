@@ -155,9 +155,8 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
             self.redirect('/')# ***redirect to error page
         else:
             user2ID = user2.userID
-
-        discussionObject = Discussion(title=title,user1ID=user1ID, user2ID=user2ID).put()
-        self.redirect('/') #we can change this to redirect to discussion page later
+            discussionObject = Discussion(title=title,user1ID=user1ID, user2ID=user2ID).put()
+            self.redirect('/')
 
 
 # Handler for AJAX calls when putting a crux on hold.
