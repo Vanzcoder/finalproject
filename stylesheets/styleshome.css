@@ -1,29 +1,13 @@
-body {
-  font-family: "Helvetica";
-}
-h1 {
-  margin: auto;
-  width: 50%;
-  padding: 10px;
-  margin: 20px;
+.left-pad {
+  padding-left: 20px;
 }
 
-img {
-    display: block;
-    margin: auto;
-    width: 40%;
+li {
+  float: left;
+  display: block;
+  width: 100px;
 }
 
-
-section {
-  margin: auto;
-  padding: 15px;
-  left: 100px;
-  border: blue;
-}
-
-button {
-  margin: auto;
-  left: 100px;
-  padding: 10px;
-}
+ hr {
+   margin: 0px;
+ }
