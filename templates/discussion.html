@@ -24,24 +24,15 @@
 
     <div class="title">
       <a href="{{discussion.parent_url}}"><button class="leftfloat"> <-- </button></a>
-      {{discussion.title}} <br>
-
+      <h4>{{discussion.title}}</h4>
     </div>
 
-    <div class="box">
+    <div class="box left-pad">
 
   <!--What's happening here is that we're running a conditional within our for loop to check if the OnHold boolean is True. If so, then we don't initialize it with the add'l CSS class "onHold", which is responsible for the additional styling changes-->
       <div class="left">
         Contributor 1: {{user1.email}}
         {% for item in cruxesByUser1 %}
-
-        {% if current_user_id == discussion.user1ID %}
-          <form action="/deletecrux" method="post">
-            <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
-            <button class="rightfloat deleteButton" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}">Del</button>
-          </form>
-        {% endif %}
-
 
           {% if item.onHold %}
             <div class = "text onHold leftside">
@@ -54,10 +45,10 @@
                 </div>
               {% endif %}
               <p class = "cruxTitle">
-                Title: {{item.title}}
+                {{item.title}}
               </p>
               <p class = "cruxContent">
-                Crux: {{item.content}}
+                {{item.content}}
               </p>
             </div>
 
@@ -72,10 +63,10 @@
                 </div>
               {% endif %}
               <p class = "cruxTitle">
-                Title: {{item.title}}
+                {{item.title}}
               </p>
               <p class = "cruxContent">
-                Crux: {{item.content}}
+                {{item.content}}
               </p>
             </div>
 
@@ -86,7 +77,6 @@
                 <button class="expandButton rightfloat">X</button>
                 <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
                 <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
-
 
 
 
@@ -103,16 +93,16 @@
               </div>
             {% endif %}
             <p class = "cruxTitle">
-              Title: {{item.title}}
+              {{item.title}}
             </p>
             <p class = "cruxContent">
-              Crux: {{item.content}}
+              {{item.content}}
             </p>
           </div>
 
-            {% if not (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
-            <a href="/discussion?key={{item.subdiscussion_key.urlsafe()}}"><button>RECURSE</button></a>
-            {% endif %}
+          {% if not (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
+          <a href="/discussion?key={{item.subdiscussion_key.urlsafe()}}"><button>RECURSE</button></a>
+          {% endif %}
 
           {% endif %}
         {% endfor %}
@@ -123,12 +113,6 @@
       <div class="right">
         Contributor 2: {{user2.email}}
         {% for item in cruxesByUser2 %}
-          {% if current_user_id == discussion.user2ID %}
-            <form action="/deletecrux" method="post">
-              <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
-              <button class="rightfloat deleteButton" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}">Del</button>
-            </form>
-          {% endif %}
           {% if item.onHold %}
             <div class = "text onHold rightside">
               {% if discussion.user1ID == current_user_id %}
@@ -136,15 +120,13 @@
                   <button class="expandButton rightfloat">X</button>
                   <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
                   <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
-
                 </div>
-
               {% endif %}
               <p class = "cruxTitle">
-                Title: {{item.title}}
+                {{item.title}}
               </p>
               <p class = "cruxContent">
-                Crux: {{item.content}}
+                {{item.content}}
               </p>
             </div>
 
@@ -152,17 +134,16 @@
             <div class = "text onAccept rightside">
               {% if discussion.user1ID == current_user_id %}
                 <div class="buttonBar">
-                  <button class="expandButton rightfloat"><img src="images/logo.png" alt="logo" style="width:50ogopx;height:50px;"></button>
+                  <button class="expandButton rightfloat">X</button>
                   <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
                   <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
-
                 </div>
               {% endif %}
               <p class = "cruxTitle">
-                Title: {{item.title}}
+                {{item.title}}
               </p>
               <p class = "cruxContent">
-                Crux: {{item.content}}
+                {{item.content}}
               </p>
             </div>
 
@@ -176,7 +157,6 @@
 
 
 
-
                 <form action="/recurse" method="post">
                   <input type="hidden" name="user1ID" value="{{ discussion.user1ID }}" />
                   <input type="hidden" name="user2ID" value="{{ discussion.user2ID }}" />
@@ -187,15 +167,14 @@
 
 
 
-
               </div>
             {% endif %}
 
             <p class = "cruxTitle">
-              Title: {{item.title}}
+              {{item.title}}
             </p>
             <p class = "cruxContent">
-              Crux: {{item.content}}
+              {{item.content}}
             </p>
           </div>
 
@@ -218,14 +197,21 @@
     {% if discussion.user1ID == current_user_id or discussion.user2ID ==  current_user_id  %}
       <form method="post" action ="/newcrux">
         <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
-        Title:
+
+        <div class="six columns">
+          Title:
+          <br />
+          <input type="text" name="title" class="u-full-width"/>
+        </div>
+
         <br />
-        <input type="text" name="title" class="u-full-width"/>
-        <br />
-        Content:
-        <br />
-        <textarea name="content" class="u-full-width"></textarea>
-        <button type="submit" class="button-primary">Add Crux</button></p>
+        <div class="eleven columns">
+          Content:
+          <br />
+          <textarea name="content" class="u-full-width"></textarea>
+          <button type="submit" class="button-primary">Add Crux</button></p>
+        </div>
+
       </form>
     {% endif %}
 

@@ -8,13 +8,19 @@ button {
   background-color: white;
   position: sticky;
   top: 0px;
-  padding: 1em 1em 1em 1em;
+  padding-bottom: 10px;
+  padding-top: 10px;
   z-index: 2;
 }
 
+.left-pad {
+  padding-left: 20px;
+}
+
+
 .buttonBar {
   position: sticky;
-  top: 0px;
+  top: 1px;
 }
 
 .leftfloat {
@@ -67,12 +73,14 @@ button {
 
 /* The popup first starts out invisible */
 .cruxPopup {
-  position: relative;
+  position: fixed;
   display: none;
   background-color: white;
-  margin: 0 auto;
-  width: 90%;
-  height: 50em;
+  top: 50px;
+  width: 70%;
+  height: 70%;
+  /* Half of 100% minus the existing width*/
+  left: 15%;
   /* Order this on top of the overlay*/
   z-index: 4;
 }
