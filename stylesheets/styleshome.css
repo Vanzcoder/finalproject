@@ -5,6 +5,13 @@ h1 {
   margin: auto;
   width: 50%;
   padding: 10px;
+  margin: 20px;
+}
+
+img {
+    display: block;
+    margin: auto;
+    width: 40%;
 }
 
 
@@ -12,7 +19,7 @@ section {
   margin: auto;
   padding: 15px;
   left: 100px;
-  border: 3px solid green;
+  border: blue;
 }
 
 button {

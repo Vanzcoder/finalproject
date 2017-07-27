@@ -6,10 +6,10 @@
     <title>Double Crux</title>
   </head>
 
-
+<link type="text/css" rel="stylesheet" href="/stylesheets/styleshome.css"/>
   <body>
 
-    <section>
+    <section align="right">
         {% if current_user %}
           <p>Welcome, {{current_user}}</p>
           <a href="{{logout_url}}">Log Out</a><br>
@@ -19,18 +19,18 @@
         {% endif %}
       </section>
 
-    <h1>Welcome to Double Crux!</h1>
+    <img src="images/logotitle.png" alt="logo" style="width:904px;height:228px;">
 
-    <dir>
-    <ul>
-      <li>Our Team</li>
-      <li>Profile</li>
-      <li>Featured</li>
-    </ul>
+    <dir class="pure-g">
+        <dir class="pure-u-1-3">Our Team</dir>
+        <dir class="pure-u-1-3">Profile</dir>
+        <dir class="pure-u-1-3">Featured</dir>
     </dir>
     <br />
 
   <!-- Use of discussion and discussionS is a very bad idea. I'm changing it to item instead-->
+<h2>Featured:</h2>
+<br />
     {% for item in discussions %}
       <a href="/discussion?key={{item.key.urlsafe()}}"><button>{{item.title}}</button></a>
       <br />

@@ -37,16 +37,16 @@
             <div class = "text onHold">
               {% if discussion.user2ID == current_user_id %}
                 <div class="buttonBar">
-                  <button class="expandButton rightfloat">X</button>
-                  <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
-                  <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+                  <button class="expandButton rightfloat"><img src="images/logo.png" alt="logo" style="width:50ogopx;height:50px;"></button>
+                  <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">Hold</button>
+                  <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">Accept</button>
                   <form action="/recurse" method="post">
                     <input type="hidden" name="user1ID" value="{{ discussion.user1ID }}" />
                     <input type="hidden" name="user2ID" value="{{ discussion.user2ID }}" />
                     <input type="hidden" name="crux_title" value="{{ item.title }}" />
                     <input type="hidden" name="subdiscussion_key" value="{{ item.subdiscussion_key }}" />
                     <input type="hidden" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}" />
-                    <button type="submit" class="rightfloat">R</button>
+                    <button type="submit" class="rightfloat">Recurse</button>
                   </form>
                 </div>
               {% endif %}
@@ -62,16 +62,16 @@
             <div class = "text onAccept">
               {% if discussion.user2ID == current_user_id %}
                 <div class="buttonBar">
-                  <button class="expandButton rightfloat">X</button>
-                  <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
-                  <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+                  <button class="expandButton rightfloat"><img src="images/logo.png" alt="logo" style="width:50ogopx;height:50px;"></button>
+                  <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">Hold</button>
+                  <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">Accept</button>
                           <form action="/recurse" method="post">
                             <input type="hidden" name="userID1" value="{{ discussion.user1ID }}" />
                             <input type="hidden" name="userID2" value="{{ discussion.user2ID }}" />
                             <input type="hidden" name="crux_title" value="{{ item.title }}" />
                             <input type="hidden" name="subdiscussion_key" value="{{ item.subdiscussion_key }}" />
                             <input type="hidden" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}" />
-                            <button type="submit" class="rightfloat">R</button>
+                            <button type="submit" class="rightfloat">Recurse</button>
                           </form>
                 </div>
               {% endif %}
@@ -87,16 +87,16 @@
           <div class = "text">
             {% if discussion.user2ID == current_user_id %}
               <div class="buttonBar">
-                <button class="expandButton rightfloat">X</button>
-                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
-                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+                <button class="expandButton rightfloat"><img src="images/logo.png" alt="logo" style="width:50ogopx;height:50px;"></button>
+                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">Hold</button>
+                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">Accept</button>
                           <form action="/recurse" method="post">
                             <input type="hidden" name="userID1" value="{{ discussion.user1ID }}" />
                             <input type="hidden" name="userID2" value="{{ discussion.user2ID }}" />
                             <input type="hidden" name="crux_title" value="{{ item.title }}" />
                             <input type="hidden" name="subdiscussion_key" value="{{ item.subdiscussion_key }}" />
                             <input type="hidden" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}" />
-                            <button type="submit" class="rightfloat">R</button>
+                            <button type="submit" class="rightfloat">Recurse</button>
                           </form>
               </div>
             {% endif %}
@@ -120,16 +120,16 @@
             <div class = "text onHold">
               {% if discussion.user1ID == current_user_id %}
                 <div class="buttonBar">
-                  <button class="expandButton rightfloat">X</button>
-                  <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
-                  <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+                  <button class="expandButton rightfloat"><img src="images/logo.png" alt="logo" style="width:50ogopx;height:50px;"></button>
+                  <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">Hold</button>
+                  <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">Accept</button>
                         <form action="/recurse" method="post">
                           <input type="hidden" name="userID1" value="{{ discussion.user1ID }}" />
                           <input type="hidden" name="userID2" value="{{ discussion.user2ID }}" />
                           <input type="hidden" name="crux_title" value="{{ item.title }}" />
                           <input type="hidden" name="subdiscussion_key" value="{{ item.subdiscussion_key }}" />
                           <input type="hidden" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}" />
-                          <button type="submit" class="rightfloat">R</button>
+                          <button type="submit" class="rightfloat">Recurse</button>
                         </form>
                 </div>
               {% endif %}
@@ -145,7 +145,7 @@
             <div class = "text onAccept">
               {% if discussion.user1ID == current_user_id %}
                 <div class="buttonBar">
-                  <button class="expandButton rightfloat">X</button>
+                  <button class="expandButton rightfloat"><img src="images/logo.png" alt="logo" style="width:50ogopx;height:50px;"></button>
                   <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
                   <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
                 </div>
@@ -162,16 +162,16 @@
           <div class = "text">
             {% if discussion.user1ID == current_user_id %}
               <div class="buttonBar">
-                <button class="expandButton rightfloat">X</button>
-                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
-                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+                <button class="expandButton rightfloat"><img src="images/logo.png" alt="logo" style="width:50ogopx;height:50px;"></button>
+                <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">Hold</button>
+                <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">Accept</button>
                 <form action="/recurse" method="post">
                   <input type="hidden" name="userID1" value="{{ discussion.user1ID }}" />
                   <input type="hidden" name="userID2" value="{{ discussion.user2ID }}" />
                   <input type="hidden" name="crux_title" value="{{ item.title }}" />
                   <input type="hidden" name="subdiscussion_key" value="{{ item.subdiscussion_key }}" />
                   <input type="hidden" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}" />
-                  <button type="submit" class="rightfloat">R</button>
+                  <button type="submit" class="rightfloat">Recurse</button>
                 </form>
               </div>
             {% endif %}
