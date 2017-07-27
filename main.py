@@ -267,6 +267,17 @@ class RecurseHandler(webapp2.RequestHandler):
             url = '/discussion?key=' + str(subdiscussion_urlsafe_key)
             self.redirect(url)
 
+class DeleteCruxHandler(webapp2.RequestHandler):
+    def post(self):
+        crux_urlsafe_key = self.request.get("crux_urlsafe_key")
+        crux_key_object = ndb.Key(urlsafe=crux_urlsafe_key)
+        crux_key_object.delete()
+
+        discussion_urlsafe_key = self.request.get("discussion_key")
+        url = '/discussion?key=' + str(discussion_urlsafe_key)
+        self.redirect(url)
+
+
 
 
 app = webapp2.WSGIApplication([
@@ -278,4 +289,5 @@ app = webapp2.WSGIApplication([
     ('/onhold', OnHoldHandler),
     ('/onaccept', OnAcceptHandler),
     ('/recurse', RecurseHandler),
+    ('/deletecrux', DeleteCruxHandler),
 ], debug=True)

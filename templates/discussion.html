@@ -33,6 +33,14 @@
         Contributor 1: {{user1.email}}
         {% for item in cruxesByUser1 %}
 
+        {% if current_user_id == discussion.user1ID %}
+          <form action="/deletecrux" method="post">
+            <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
+            <button class="rightfloat deleteButton" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}">Del</button>
+          </form>
+        {% endif %}
+
+
           {% if item.onHold %}
             <div class = "text onHold leftside">
               {% if discussion.user2ID == current_user_id %}
@@ -79,12 +87,13 @@
 
 
 
+
                           <form action="/recurse" method="post">
                             <input type="hidden" name="user1ID" value="{{ discussion.user1ID }}" />
                             <input type="hidden" name="user2ID" value="{{ discussion.user2ID }}" />
                             <input type="hidden" name="crux_title" value="{{ item.title }}" />
                             <input type="hidden" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}" />
-                            <button type="submit" class="rightfloat">Recurse</button>
+                            <button type="submit" class="rightfloat">R</button>
                           </form>
 
 
@@ -99,9 +108,9 @@
             </p>
           </div>
 
-          {% if not (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
-          <a href="/discussion?key={{item.subdiscussion_key.urlsafe()}}"><button>RECURSE</button></a>
-          {% endif %}
+            {% if not (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
+            <a href="/discussion?key={{item.subdiscussion_key.urlsafe()}}"><button>RECURSE</button></a>
+            {% endif %}
 
           {% endif %}
         {% endfor %}
@@ -112,6 +121,12 @@
       <div class="right">
         Contributor 2: {{user2.email}}
         {% for item in cruxesByUser2 %}
+          {% if current_user_id == discussion.user2ID %}
+            <form action="/deletecrux" method="post">
+              <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
+              <button class="rightfloat deleteButton" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}">Del</button>
+            </form>
+          {% endif %}
           {% if item.onHold %}
             <div class = "text onHold rightside">
               {% if discussion.user1ID == current_user_id %}
@@ -119,7 +134,9 @@
                   <button class="expandButton rightfloat">X</button>
                   <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
                   <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+
                 </div>
+
               {% endif %}
               <p class = "cruxTitle">
                 Title: {{item.title}}
@@ -136,6 +153,7 @@
                   <button class="expandButton rightfloat"><img src="images/logo.png" alt="logo" style="width:50ogopx;height:50px;"></button>
                   <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
                   <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
+
                 </div>
               {% endif %}
               <p class = "cruxTitle">
@@ -156,12 +174,13 @@
 
 
 
+
                 <form action="/recurse" method="post">
                   <input type="hidden" name="user1ID" value="{{ discussion.user1ID }}" />
                   <input type="hidden" name="user2ID" value="{{ discussion.user2ID }}" />
                   <input type="hidden" name="crux_title" value="{{ item.title }}" />
                   <input type="hidden" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}" />
-                  <button type="submit" class="rightfloat">Recurse</button>
+                  <button type="submit" class="rightfloat">R</button>
                 </form>
 
 
