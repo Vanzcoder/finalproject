@@ -14,13 +14,16 @@ jinja_environment = jinja2.Environment(
 class Discussion(ndb.Model):
     title = ndb.StringProperty()
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
+    isSubLevel = ndb.BooleanProperty()
     user1ID = ndb.StringProperty()
     user2ID = ndb.StringProperty()
+
 
 
 class Profile(ndb.Model):
     email = ndb.StringProperty()
     userID = ndb.StringProperty()
+
 
 
 # We're defining a crux model along with its properties. These will be the "sub-sections", or additional subpoints to our arguments.
@@ -33,7 +36,6 @@ class Crux(ndb.Model):
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
     discussion_key = ndb.KeyProperty(kind=Discussion)
     subdiscussion_key = ndb.KeyProperty(kind=Discussion)
-
 
 
 class MainHandler(webapp2.RequestHandler):
@@ -62,7 +64,7 @@ class MainHandler(webapp2.RequestHandler):
                 profile.put()
 
         # On load, we're querying the database for all existing Discussion objects, fetching them, and we're passing them in to Jinja.
-        discussions = Discussion.query().order(Discussion.timestamp).fetch()
+        discussions = Discussion.query().filter(Discussion.isSubLevel == False).order(Discussion.timestamp).fetch()
 
         # We're passing in information about the user (which we might change) as well as the discussions. But we don't yet know how the discussions will work.
         template = jinja_environment.get_template('templates/home.html')
@@ -174,7 +176,7 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
             self.redirect('/')# ***redirect to error page
         else:
             user2ID = user2.userID
-            discussionObject = Discussion(title=title,user1ID=user1ID, user2ID=user2ID).put()
+            discussionObject = Discussion(title=title, isSubLevel=False, user1ID=user1ID, user2ID=user2ID).put()
             self.redirect('/')
 
 
@@ -216,39 +218,47 @@ class OnAcceptHandler(webapp2.RequestHandler):
         crux.put()
 
 
-
+#Handler for recursing on cruxes
 class RecurseHandler(webapp2.RequestHandler):
-
-    # At some point we need to convert a key string into an actual Key.
-
     def post(self):
-        subdiscussion_key = self.request.get("subdiscussion_key")
+        # check the element provided by the crux's subdiscussion_key
+        crux_urlsafe_key = self.request.get("crux_urlsafe_key")
 
-        if (subdiscussion_key == None):
-            url = '/discussion?key=' + str(subdiscussion_key)
-            self.redirect("/subdiscussion_keyEXISTS")
-        else:
+        # grabs the actual crux object from the Key
+        crux = ndb.Key(urlsafe=crux_urlsafe_key).get()
+
+        subdiscussion_key = crux.subdiscussion_key
+
+        # if the discussion isn't linked to a subdiscussion:
+        if (subdiscussion_key == None or subdiscussion_key == "None"):
+
+            # make a new discussion
             title = self.request.get("crux_title")
             user1ID = self.request.get("user1ID")
             user2ID = self.request.get("user2ID")
-            discussionObject = Discussion(title=title, user1ID=user1ID, user2ID=user2ID)
-            discussionObject.put()
+            # Add the subdiscussion to the list:
+            subDiscussionObject = Discussion(title=title, isSubLevel=True, user1ID=user1ID, user2ID=user2ID)
 
-            # The urlsafe_key of the new discussion
-            urlsafe_key = discussionObject.key.urlsafe()
-            url = '/discussion?key=' + str(urlsafe_key)
+            # update the subdiscussion to the database
+            subDiscussionObject.put()
 
-            crux_urlsafe_key = self.request.get("crux_urlsafe_key")
-            # Need the urlsafe_key in the form where we access this handler
-            crux = ndb.Key(urlsafe=crux_urlsafe_key).get()
+            # The subdiscussion_key will be a key string.
+            subdiscussion_urlsafe_key = subDiscussionObject.key.urlsafe()
 
-            crux.subdiscussion_key = urlsafe_key
-
-            # Updates the crux object
+            # updates the crux subdiscussion_key with the actual Key object associated with the subdiscussion key string
+            crux.subdiscussion_key = ndb.Key(urlsafe=subdiscussion_urlsafe_key)
             crux.put()
 
-            # redirects us to the new recursed, crux
-            self.redirect("/subdiscussion_keyNOT")
+            # new URL to the new subdiscussion
+            url = '/discussion?key=' + str(subdiscussion_urlsafe_key)
+            # Grabbing the new subdiscussion url and passing it in
+            self.redirect(url)
+
+        else:
+            subdiscussion_urlsafe_key = crux.subdiscussion_key.urlsafe()
+            url = '/discussion?key=' + str(subdiscussion_urlsafe_key)
+            self.redirect(url)
+
 
 
 app = webapp2.WSGIApplication([
