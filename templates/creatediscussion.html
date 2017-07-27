@@ -1,14 +1,28 @@
-<form method="post" action ="/creatediscussion"> <!-- the action says which handler we want to grab the method from-->
-  Title:
-  <br>
-  <input type="text" name="title" />
-  <input type="hidden" name="user1ID" value="{{current_user_id}}">
-  <br>
-  <br>
-  Add Other Contributor:
-  <br>
-  <input type="text" name="user2email">
-  <br>
-  <br>
-  <button type="submit">Add Discussion</button></p>
-</form>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/skeleton.css"/>
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <title>New Discussion</title>
+  </head>
+  <body>
+    <form method="post" action ="/creatediscussion"> <!-- the action says which handler we want to grab the method from-->
+
+          Title:
+        <input type="text" name="title"/>
+        <input type="hidden" name="user1ID" value="{{current_user_id}}">
+
+      <br />
+
+          Add Other Contributor:
+        <input type="text" name="user2email">
+
+      <br />
+
+      <button type="submit" class="button-primary">Add Discussion</button></p>
+
+    </form>
+  </body>
+</html>

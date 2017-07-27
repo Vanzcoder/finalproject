@@ -4,6 +4,8 @@
   <head>
     <meta charset="utf-8">
         <link type="text/css" rel="stylesheet" href="/stylesheets/stylesDiscussion.css"/>
+        <link type="text/css" rel="stylesheet" href="/stylesheets/skeleton.css"/>
+        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="scripts/scriptDiscussion.js"></script>
     <title>{{discussion.title}}</title>
@@ -199,12 +201,12 @@
         <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
         Title:
         <br />
-        <input type="text" name="title" />
+        <input type="text" name="title" class="u-full-width"/>
         <br />
         Content:
         <br />
-        <textarea name="content"></textarea>
-        <button type="submit">Add Crux</button></p>
+        <textarea name="content" class="u-full-width"></textarea>
+        <button type="submit" class="button-primary">Add Crux</button></p>
       </form>
     {% endif %}
 

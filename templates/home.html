@@ -2,45 +2,54 @@
 
 <html>
   <head>
-    <!--link type="text/css" rel="stylesheet" href="/stylesheets/styleshome.css" -->
+    <link type="text/css" rel="stylesheet" href="/stylesheets/skeleton.css"/>
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/styleshome.css"/>
     <title>Double Crux</title>
   </head>
 
 
   <body>
-
-    <section>
+    <section align="right">
         {% if current_user %}
-          <p>Welcome, {{current_user}}</p>
-          <a href="{{logout_url}}">Log Out</a><br>
+          Welcome, {{current_user}} <span style="display:inline-block; width: 10px;"></span>
+          <a href="{{logout_url}}"><button>Log Out</button></a>
         {% else %}
-          <p>Hello from Double Crux!</p>
-          <a href="{{login_url}}">Log In</a> <br>
+          Not Logged In <span style="display:inline-block; width: 10px;"></span>
+          <a href="{{login_url}}"><button>Log In</button></a>
         {% endif %}
       </section>
 
-    <h1>Welcome to Double Crux!</h1>
+    <hr />
+    <span style="display:block; height: 10px;"></span>
 
-    <dir>
-    <ul>
-      <li>Our Team</li>
-      <li>Profile</li>
-      <li>Featured</li>
-    </ul>
-    </dir>
-    <br />
+    <div class="left-pad">
 
-  <!-- Use of discussion and discussionS is a very bad idea. I'm changing it to item instead-->
-    {% for item in discussions %}
-      <a href="/discussion?key={{item.key.urlsafe()}}"><button>{{item.title}}</button></a>
+      <h1>Double Crux</h1>
+
+      <ul class="navbar">
+        <li>Our Team</li>
+        <li>Profile</li>
+        <li>Featured</li>
+      </ul>
+
       <br />
       <br />
-    {% endfor %}
 
-    <br />
-    {% if current_user %}
-      <a href="/creatediscussion"><button>Add Discussion</button> </a></p>
-    {% endif %}
+      {% if current_user %}
+        <a href="/creatediscussion"><button class="button-primary">Add Discussion</button> </a></p>
+      {% endif %}
+
+      {% for item in discussions %}
+        <a href="/discussion?key={{item.key.urlsafe()}}"><button>{{item.title}}</button></a>
+        <br />
+        <br />
+      {% endfor %}
+
+      <br />
+
+    </div>
+
   </body>
 
 </html>
