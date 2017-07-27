@@ -1,3 +1,8 @@
+button {
+  cursor: pointer;
+  cursor: hand;
+}
+
 .title {
   text-align: center;
   background-color: white;
@@ -84,17 +89,20 @@
 
 .text {
   height: 200px;
-  background-color: lightblue;
   padding: 10px 10px 10px 10px;
   margin-bottom: 10px;
   overflow-y: scroll;
 }
 
+.leftside {
+  background-color: lightblue;
+}
+
+.rightside {
+  background-color: pink;
+}
+
 /* Removes the scrollbar, but keeps it functional*/
 ::-webkit-scrollbar {
   display:none;
-}
-
-.text:hover {
-  background-color: pink;
 }

@@ -15,3 +15,8 @@ indexes:
   - name: discussion_key
   - name: timestamp
     direction: desc
+
+- kind: Discussion
+  properties:
+  - name: isSubLevel
+  - name: timestamp
