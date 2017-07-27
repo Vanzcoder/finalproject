@@ -17,6 +17,7 @@ class Discussion(ndb.Model):
     isSubLevel = ndb.BooleanProperty()
     user1ID = ndb.StringProperty()
     user2ID = ndb.StringProperty()
+    parent_url = ndb.StringProperty()
 
 
 
@@ -36,6 +37,7 @@ class Crux(ndb.Model):
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
     discussion_key = ndb.KeyProperty(kind=Discussion)
     subdiscussion_key = ndb.KeyProperty(kind=Discussion)
+
 
 
 class MainHandler(webapp2.RequestHandler):
@@ -176,8 +178,9 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
             self.redirect('/')# ***redirect to error page
         else:
             user2ID = user2.userID
-            discussionObject = Discussion(title=title, isSubLevel=False, user1ID=user1ID, user2ID=user2ID).put()
+            discussionObject = Discussion(title=title, isSubLevel=False, user1ID=user1ID, user2ID=user2ID, parent_url='/').put()
             self.redirect('/')
+
 
 
 # Handler for AJAX calls when putting a crux on hold.
@@ -199,6 +202,7 @@ class OnHoldHandler(webapp2.RequestHandler):
         crux.put()
 
 
+
 # Handler for AJAX calls when accepting a crux.
 class OnAcceptHandler(webapp2.RequestHandler):
     def post(self):
@@ -216,6 +220,7 @@ class OnAcceptHandler(webapp2.RequestHandler):
 
         # Store it in the database, updated
         crux.put()
+
 
 
 #Handler for recursing on cruxes
@@ -236,8 +241,11 @@ class RecurseHandler(webapp2.RequestHandler):
             title = self.request.get("crux_title")
             user1ID = self.request.get("user1ID")
             user2ID = self.request.get("user2ID")
+
+            parent_url = '/discussion?key=' + str(crux.discussion_key.urlsafe())
+
             # Add the subdiscussion to the list:
-            subDiscussionObject = Discussion(title=title, isSubLevel=True, user1ID=user1ID, user2ID=user2ID)
+            subDiscussionObject = Discussion(title=title, isSubLevel=True, user1ID=user1ID, user2ID=user2ID, parent_url=parent_url)
 
             # update the subdiscussion to the database
             subDiscussionObject.put()
