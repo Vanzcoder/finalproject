@@ -8,7 +8,7 @@
         <script src="scripts/scriptDiscussion.js"></script>
     <title>{{discussion.title}}</title>
   </head>
-{{discussion.user1ID}}
+
   <body>
 
     <!-- Dark overlay for popup-->
@@ -40,8 +40,7 @@
                   <button class="expandButton rightfloat">X</button>
                   <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
                   <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
-<<<<<<< HEAD
-=======
+
                   <form action="/recurse" method="post">
                     <input type="hidden" name="user1ID" value="{{ discussion.user1ID }}" />
                     <input type="hidden" name="user2ID" value="{{ discussion.user2ID }}" />
@@ -50,7 +49,7 @@
                     <input type="hidden" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}" />
                     <button type="submit" class="rightfloat">R</button>
                   </form>
->>>>>>> 7275cbe872e43a4a172d1e992eb100d17992b2c6
+
                 </div>
               {% endif %}
               <p class = "cruxTitle">

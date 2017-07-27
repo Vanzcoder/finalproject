@@ -4,7 +4,6 @@ $(document).ready(function() {
 var toggleCheck = true;
 
 function clickExpand() {
-  var button = $(this);
 
   /* Searches through multiple parents */
   var crux = $(this).parents(".text").children(".cruxContent").html();
