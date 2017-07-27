@@ -34,8 +34,8 @@
   <!--What's happening here is that we're running a conditional within our for loop to check if the OnHold boolean is True. If so, then we don't initialize it with the add'l CSS class "onHold", which is responsible for the additional styling changes-->
       <div class="left">
         Contributor 1: {{user1.email}}
-        {% for item in cruxesByUser1 %}
 
+        {% for item in cruxesByUser1 %}
           {% if item.onHold %}
             <div class = "text onHold leftside">
               {% if discussion.user2ID == current_user_id %}
@@ -46,7 +46,19 @@
 
                 </div>
               {% endif %}
+              <p class = "cruxTitle">
+                {{item.title}}
+              </p>
+              <p class = "cruxContent">
+                {{item.content}}
+              </p>
             </div>
+
+
+
+
+
+
 
           {% elif item.onAccept %}
             <div class = "text onAccept leftside">
@@ -66,11 +78,23 @@
               </p>
             </div>
 
+
+
+
+
+
+
+
+
           {% else %}
           <div class = "text leftside">
             {% if discussion.user2ID == current_user_id %}
               <div class="buttonBar">
-                <button class="expandButton rightfloat">X</button>
+                <div class="tooltip">
+                  <button class="expandButton rightfloat">X</button>
+                  <span class="tooltiptext">Expand</span>
+                </div>
+
                 <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}">H</button>
                 <button class="rightfloat onAcceptButton" value="{{ item.key.urlsafe() }}">A</button>
 
