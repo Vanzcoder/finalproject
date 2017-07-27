@@ -224,9 +224,9 @@ class RecurseHandler(webapp2.RequestHandler):
     def post(self):
         subdiscussion_key = self.request.get("subdiscussion_key")
 
-        if (subdiscussion_key == None):
+        if not (subdiscussion_key == "None"):
             url = '/discussion?key=' + str(subdiscussion_key)
-            self.redirect("/subdiscussion_keyEXISTS")
+            self.redirect(url)
         else:
             title = self.request.get("crux_title")
             user1ID = self.request.get("user1ID")
@@ -236,19 +236,22 @@ class RecurseHandler(webapp2.RequestHandler):
 
             # The urlsafe_key of the new discussion
             urlsafe_key = discussionObject.key.urlsafe()
+            subdiscussion_key = ndb.Key(urlsafe=urlsafe_key)
+
+
             url = '/discussion?key=' + str(urlsafe_key)
 
             crux_urlsafe_key = self.request.get("crux_urlsafe_key")
             # Need the urlsafe_key in the form where we access this handler
             crux = ndb.Key(urlsafe=crux_urlsafe_key).get()
 
-            crux.subdiscussion_key = urlsafe_key
+            crux.subdiscussion_key = subdiscussion_key
 
             # Updates the crux object
             crux.put()
 
             # redirects us to the new recursed, crux
-            self.redirect("/subdiscussion_keyNOT")
+            self.redirect(url)
 
 
 app = webapp2.WSGIApplication([
