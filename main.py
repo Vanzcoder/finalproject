@@ -15,6 +15,8 @@ class Discussion(ndb.Model):
     title = ndb.StringProperty()
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
     isSubLevel = ndb.BooleanProperty()
+    title_user1 = ndb.StringProperty()
+    title_user2 = ndb.StringProperty()
     user1ID = ndb.StringProperty()
     user2ID = ndb.StringProperty()
     parent_url = ndb.StringProperty()
@@ -178,8 +180,54 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
             self.redirect('/')# ***redirect to error page
         else:
             user2ID = user2.userID
-            discussionObject = Discussion(title=title, isSubLevel=False, user1ID=user1ID, user2ID=user2ID, parent_url='/').put()
+            discussionObject = Discussion(title=title, isSubLevel=False, title_user1='Add Side', title_user2='Add Side', user1ID=user1ID, user2ID=user2ID, parent_url='/').put()
             self.redirect('/')
+
+
+
+class AddSide1Handler(webapp2.RequestHandler):
+    def post(self):
+        # === 1: Get info from the request. ===
+        urlsafe_key = self.request.get('discussion_key')
+
+        # === 2: Interact with the database. ===
+
+        # Use the URLsafe key to get the photo from the DB.
+        discussion = ndb.Key(urlsafe=urlsafe_key).get()
+
+        # Update the boolean
+        discussion.title_user1 = self.request.get('title')
+
+        # Store it in the database, updated
+        discussion.put()
+
+        url = '/discussion?key=' + str(urlsafe_key)
+
+        #Sending the response back:
+        self.redirect(url)
+
+
+
+class AddSide2Handler(webapp2.RequestHandler):
+    def post(self):
+        # === 1: Get info from the request. ===
+        urlsafe_key = self.request.get('discussion_key')
+
+        # === 2: Interact with the database. ===
+
+        # Use the URLsafe key to get the photo from the DB.
+        discussion = ndb.Key(urlsafe=urlsafe_key).get()
+
+        # Update the boolean
+        discussion.title_user2 = self.request.get('title')
+
+        # Store it in the database, updated
+        discussion.put()
+
+        url = '/discussion?key=' + str(urlsafe_key)
+
+        #Sending the response back:
+        self.redirect(url)
 
 
 
@@ -245,7 +293,7 @@ class RecurseHandler(webapp2.RequestHandler):
             parent_url = '/discussion?key=' + str(crux.discussion_key.urlsafe())
 
             # Add the subdiscussion to the list:
-            subDiscussionObject = Discussion(title=title, isSubLevel=True, user1ID=user1ID, user2ID=user2ID, parent_url=parent_url)
+            subDiscussionObject = Discussion(title=title, isSubLevel=True, title_user1='Add Side', title_user2='Add Side', user1ID=user1ID, user2ID=user2ID, parent_url=parent_url)
 
             # update the subdiscussion to the database
             subDiscussionObject.put()
@@ -267,6 +315,8 @@ class RecurseHandler(webapp2.RequestHandler):
             url = '/discussion?key=' + str(subdiscussion_urlsafe_key)
             self.redirect(url)
 
+
+
 class DeleteCruxHandler(webapp2.RequestHandler):
     def post(self):
         crux_urlsafe_key = self.request.get("crux_urlsafe_key")
@@ -285,6 +335,8 @@ app = webapp2.WSGIApplication([
     ('/discussion', DiscussionHandler),
     ('/newcrux', NewCruxHandler),
     ('/creatediscussion', CreateDiscussionHandler),
+    ('/addside1', AddSide1Handler),
+    ('/addside2', AddSide2Handler),
     ('/discussiononhold', OnHoldHandler),
     ('/onhold', OnHoldHandler),
     ('/onaccept', OnAcceptHandler),

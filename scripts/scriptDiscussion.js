@@ -21,6 +21,24 @@ $(".expandButton").click(clickExpand);
 
 
 
+function clickTitlePopup1() {
+  $(".overlay").toggle();
+  $(".discussionSide1").toggle();
+}
+/* Button selectors*/
+$(".discussion1PopupButton").click(clickTitlePopup1);
+
+
+
+function clickTitlePopup2() {
+  $(".overlay").toggle();
+  $(".discussionSide2").toggle();
+}
+/* Button selectors*/
+$(".discussion2PopupButton").click(clickTitlePopup2);
+
+
+
 function onHold() {
   var button = $(this);
 

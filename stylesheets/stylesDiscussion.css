@@ -103,6 +103,21 @@ textarea {
   text-align: center;
 }
 
+
+.discussionSide1, .discussionSide2 {
+  position: fixed;
+  display: none;
+  top: 50px;
+  border-radius: 10px;
+  font-size: 18px;
+  width: 60%;
+  height: 30%;
+  /* Half of 100% minus the existing width*/
+  left: 20%;
+  /* Order this on top of the overlay*/
+  z-index: 4;
+}
+
 /* This is where the actual grid layout comes in */
 .box {
   display: grid;

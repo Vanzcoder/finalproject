@@ -9,7 +9,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="scripts/scriptDiscussion.js"></script>
         <script src="https://use.fontawesome.com/3e4be7e583.js"></script>
-        
+
         <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
@@ -33,6 +33,28 @@
       <div class="popupText left-pad"></div>
     </div>
 
+
+    <!-- Popups for changing the discussion side's title -->
+    <div class="discussionSide1">
+      <form action="/addside1" method="post">
+        <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
+        <textarea name="title" class="u-full-width" placeholder="Put Your Side's Title Here"></textarea>
+        <button type="submit" class="rightfloat button-primary">Add Side</button>
+      </form>
+    </div>
+
+
+    <!-- Popups for changing the discussion side's title -->
+    <div class="discussionSide2">
+      <form action="/addside2" method="post">
+        <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
+        <textarea name="title" class="u-full-width" placeholder="Put Your Side's Title Here"></textarea>
+        <button type="submit" class="rightfloat button-primary">Add Side</button>
+      </form>
+    </div>
+
+
+
     <div class="title">
       <a href="{{discussion.parent_url}}"><button class="leftfloat">&larr;</button></a>
       <h4>{{discussion.title}}</h4>
@@ -46,6 +68,14 @@
     <!-- This is the jinja that handles what goes on the left side of the page -->
       <div class="left">
         Contributor 1: {{user1.email}}
+        <h5><strong>{{discussion.title_user1}}</strong></h5>
+
+        {% if current_user_id == discussion.user1ID %}
+        <button class="discussion1PopupButton">Edit Side Title</button>
+        {% else %}
+        <span style="display:block; height: 40px;"></span>
+        {% endif %}
+
         <hr />
 
         {% for item in cruxesByUser1 %}
@@ -110,7 +140,7 @@
         <!-- This is the actual text from the crux-->
         <div class = "text leftside">
           <p class = "cruxTitle">
-            <span contenteditable="true"><strong>{{item.title}}</strong></span>
+            <span><strong>{{item.title}}</strong></span>
           </p>
           <p class = "cruxContent">
             {{item.content}}
@@ -145,7 +175,16 @@
       <!-- Ditto, but with 1 and 2 swapped -->
       <div class="right">
         Contributor 2: {{user2.email}}
+        <h5><strong>{{discussion.title_user2}}</strong></h5>
+
+        {% if current_user_id == discussion.user2ID %}
+          <button class="discussion2PopupButton">Edit Side Title</button>
+        {% else %}
+        <span style="display:block; height: 40px;"></span>
+        {% endif %}
+
         <hr />
+
 
         {% for item in cruxesByUser2 %}
 
@@ -203,7 +242,7 @@
 
         <div class = "text rightside">
           <p class = "cruxTitle">
-            <span contenteditable="true"><strong>{{item.title}}</strong></span>
+            <span><strong>{{item.title}}</strong></span>
           </p>
           <p class = "cruxContent">
             {{item.content}}
