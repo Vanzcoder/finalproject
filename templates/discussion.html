@@ -150,6 +150,8 @@
         <!-- If the crux links to a discussion, then the RECURSE Button links to it-->
         {% if not (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
         <a href="/discussion?key={{item.subdiscussion_key.urlsafe()}}"><button class="button-primary">RECURSE</button></a>
+        {% elif not current_user_id == discussion.user1ID %}
+        <span style="display:block; height: 40px;"></span>
         {% endif %}
 
 
@@ -252,6 +254,8 @@
 
         {% if not (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
         <a href="/discussion?key={{item.subdiscussion_key.urlsafe()}}"><button class="button-primary">RECURSE</button></a>
+        {% elif not current_user_id == discussion.user2ID %}
+        <span style="display:block; height: 40px;"></span>
         {% endif %}
 
 
