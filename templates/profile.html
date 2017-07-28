@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/skeleton.css"/>
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/styleshome.css"/>
+    <title>Profile</title>
+  </head>
+  <body>
+    <div class="left-pad">
+        <h3>Hello {{email}}</h3>
+        <h6>Here are all your discussions</h6>
+        <div class="left-pad">
+          <p>
+            {{current_user.email}}
+          </p>
+          {% for item in discussions %}
+            <a href="/discussion?key={{item.key.urlsafe()}}"><button>{{item.title}}</button></a>
+            <br />
+            <br />
+          {% endfor %}
+      </div>
+    </div>
+
+
+  </body>
+</html>

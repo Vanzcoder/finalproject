@@ -353,6 +353,38 @@ class DeleteDiscussionHandler(webapp2.RequestHandler):
 
         self.redirect('/')
 
+class FeaturedHandler(webapp2.RequestHandler):
+    def get(self):
+        discussions = Discussion.query().filter(Discussion.isSubLevel == False).order(Discussion.timestamp).fetch()
+        template_vars = {
+            "discussions" : discussions,
+        }
+
+        template = jinja_environment.get_template('templates/featured.html')
+        self.response.write(template.render(template_vars))
+
+class OurTeamHandler(webapp2.RequestHandler):
+    def get(self):
+
+        template = jinja_environment.get_template('templates/ourteam.html')
+        self.response.write(template.render())
+
+
+class ProfileHandler(webapp2.RequestHandler):
+    def get(self):
+        current_user = users.get_current_user()
+        discussions = Discussion.query().filter(Discussion.isSubLevel == False).filter(ndb.OR(Discussion.user1ID == current_user.user_id(), Discussion.user2ID == current_user.user_id())).fetch()
+
+        email = current_user.email()
+
+        template_vars = {
+            "current_user": current_user.user_id(),
+            "discussions" : discussions,
+            "email": email,
+        }
+        template = jinja_environment.get_template('templates/profile.html')
+        self.response.write(template.render(template_vars))
+
 
 
 app = webapp2.WSGIApplication([
@@ -367,5 +399,8 @@ app = webapp2.WSGIApplication([
     ('/onaccept', OnAcceptHandler),
     ('/recurse', RecurseHandler),
     ('/deletecrux', DeleteCruxHandler),
-    ('/deletediscussion', DeleteDiscussionHandler)
+    ('/deletediscussion', DeleteDiscussionHandler),
+    ('/ourteam', OurTeamHandler),
+    ('/profile', ProfileHandler),
+    ('/featured', FeaturedHandler),
 ], debug=True)

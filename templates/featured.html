@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/skeleton.css"/>
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/styleshome.css"/>
+    <title></title>
+  </head>
+  <body>
+    <div class="left-pad">
+    <h2>Featured</h2>
+    {% for item in discussions %}
+      <a href="/discussion?key={{item.key.urlsafe()}}"><button>{{item.title}}</button></a>
+      <br />
+      <br />
+    {% endfor %}
+  </div>
+  </body>
+</html>

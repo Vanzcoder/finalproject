@@ -20,3 +20,23 @@ li {
 .logotitle {
   display: inline;
 }
+
+.FeaturedDiscussions {
+    margin-top: 30px;
+  }
+
+  .linkcolor {
+    text-decoration: none; color: black;
+  }
+
+
+ div.profilephotos {
+   display: inline-block;
+   margin-left: auto;
+   margin-right: auto;
+   height: 30px;
+ }
+
+ .imgContainer{
+    text-align:center;
+ }

@@ -40,28 +40,34 @@
       </div>
 
       <ul class="navbar">
-        <li>Our Team</li>
-        <li>Profile</li>
-        <li>Featured</li>
+        <li><a class="linkcolor" href="/ourteam"/>Our Team</a></li>
+        <li><a class="linkcolor" href="/profile"/>Profile</a></li>
+        <li><a class="linkcolor" href="/featured"/>Featured</a></li>
       </ul>
 
       <br />
-      <br />
+  <br />
 
-      {% if current_user %}
-        <a href="/creatediscussion"><button class="button-primary">Add Discussion</button> </a></p>
-      {% endif %}
 
-      {% for item in discussions %}
-        <a href="/discussion?key={{item.key.urlsafe()}}"><button>{{item.title}}</button></a>
+        <div class="wrapper">
+            {% if current_user %}
+                <a href="/creatediscussion"><button class="button-primary">Add Discussion</button> </a></p>
+            {% endif %}
+       </div>
+        <br>
+
+  <h5 class="FeaturedDiscussions">Featured Discussions:</h5>
+  <br />
+        {% for item in discussions %}
+          <a href="/discussion?key={{item.key.urlsafe()}}"><button>{{item.title}}</button></a>
+          <br />
+          <br />
+        {% endfor %}
+
         <br />
-        <br />
-      {% endfor %}
 
-      <br />
+      </div>
 
-    </div>
+    </body>
 
-  </body>
-
-</html>
+  </html>
