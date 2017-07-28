@@ -6,8 +6,17 @@ li {
   float: left;
   display: block;
   width: 100px;
+  text-align: center;
 }
 
  hr {
    margin: 0px;
  }
+
+.logo {
+  width: 100px;
+}
+
+.logotitle {
+  display: inline;
+}
