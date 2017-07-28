@@ -20,6 +20,12 @@ class Discussion(ndb.Model):
     user1ID = ndb.StringProperty()
     user2ID = ndb.StringProperty()
     parent_url = ndb.StringProperty()
+    discussion_thread_ID = ndb.StringProperty()
+
+
+
+class DiscussionThreadID(ndb.Model):
+    title = ndb.StringProperty()
 
 
 
@@ -81,7 +87,6 @@ class MainHandler(webapp2.RequestHandler):
             "currentprofile": currentprofile,
         }
         self.response.write(template.render(template_vars))
-
 
 
 # This allows us to show discussions from the link on Home
@@ -179,9 +184,13 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
         if not user2:
             self.redirect('/')# ***redirect to error page
         else:
+            discussion_thread_ID_object = DiscussionThreadID(title=title)
+            discussion_thread_ID_object.put()
+            discussion_thread_ID_string = discussion_thread_ID_object.key.urlsafe()
             user2ID = user2.userID
-            discussionObject = Discussion(title=title, isSubLevel=False, title_user1='Add Side', title_user2='Add Side', user1ID=user1ID, user2ID=user2ID, parent_url='/').put()
+            discussionObject = Discussion(title=title, isSubLevel=False, title_user1='Add Side', title_user2='Add Side', user1ID=user1ID, user2ID=user2ID, parent_url='/', discussion_thread_ID=discussion_thread_ID_string).put()
             self.redirect('/')
+
 
 
 
@@ -205,6 +214,7 @@ class AddSide1Handler(webapp2.RequestHandler):
 
         #Sending the response back:
         self.redirect(url)
+
 
 
 
@@ -289,11 +299,12 @@ class RecurseHandler(webapp2.RequestHandler):
             title = self.request.get("crux_title")
             user1ID = self.request.get("user1ID")
             user2ID = self.request.get("user2ID")
+            discussion_thread_ID = self.request.get("discussion_thread_ID")
 
             parent_url = '/discussion?key=' + str(crux.discussion_key.urlsafe())
 
             # Add the subdiscussion to the list:
-            subDiscussionObject = Discussion(title=title, isSubLevel=True, title_user1='Add Side', title_user2='Add Side', user1ID=user1ID, user2ID=user2ID, parent_url=parent_url)
+            subDiscussionObject = Discussion(title=title, isSubLevel=True, title_user1='Add Side', title_user2='Add Side', user1ID=user1ID, user2ID=user2ID, parent_url=parent_url, discussion_thread_ID=discussion_thread_ID)
 
             # update the subdiscussion to the database
             subDiscussionObject.put()
@@ -317,6 +328,7 @@ class RecurseHandler(webapp2.RequestHandler):
 
 
 
+
 class DeleteCruxHandler(webapp2.RequestHandler):
     def post(self):
         crux_urlsafe_key = self.request.get("crux_urlsafe_key")
@@ -327,6 +339,19 @@ class DeleteCruxHandler(webapp2.RequestHandler):
         url = '/discussion?key=' + str(discussion_urlsafe_key)
         self.redirect(url)
 
+
+
+class DeleteDiscussionHandler(webapp2.RequestHandler):
+    def post(self):
+        discussion_thread_ID = self.request.get("discussion_thread_ID")
+        discussion_query = Discussion.query().filter(Discussion.discussion_thread_ID == discussion_thread_ID)
+
+        for discussion in discussion_query:
+            discussion_key = discussion.key.urlsafe()
+            discussion_key_object = ndb.Key(urlsafe=discussion_key)
+            discussion_key_object.delete()
+
+        self.redirect('/')
 
 
 
@@ -342,4 +367,5 @@ app = webapp2.WSGIApplication([
     ('/onaccept', OnAcceptHandler),
     ('/recurse', RecurseHandler),
     ('/deletecrux', DeleteCruxHandler),
+    ('/deletediscussion', DeleteDiscussionHandler)
 ], debug=True)
