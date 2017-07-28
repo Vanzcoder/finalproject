@@ -40,6 +40,7 @@ textarea {
   height: 300px;
 }
 
+
 /*This is the styling for when the page is selected*/
 .onHold {
   box-shadow: 0px 0px 0px 5px red inset;
@@ -69,7 +70,7 @@ textarea {
   bottom: 0;
 
   /* Black background with opacity */
-  background-color: rgba(0,0,0,0.9);
+  background-color: rgba(0,0,0,0.7);
 
   /* Order of how we want to order them*/
   z-index: 3;
@@ -86,6 +87,8 @@ textarea {
   display: none;
   background-color: white;
   top: 50px;
+  border-radius: 10px;
+  font-size: 18px;
   width: 70%;
   height: 70%;
   /* Half of 100% minus the existing width*/
@@ -94,6 +97,11 @@ textarea {
   z-index: 4;
 }
 
+
+.popupTitle {
+  padding-top: 10px;
+  text-align: center;
+}
 
 /* This is where the actual grid layout comes in */
 .box {
@@ -111,12 +119,22 @@ textarea {
   overflow-y: scroll;
 }
 
+
+.leftside, .rightside {
+  border-radius: 10px;
+}
+
 .leftside {
-  background-color: lightblue;
+  border: 2px solid #3EAFD3;
 }
 
 .rightside {
-  background-color: pink;
+  border: 2px solid #BBBBBB;
+}
+
+
+.cruxTitle {
+  margin: 0;
 }
 
 /* Removes the scrollbar, but keeps it functional*/
@@ -125,11 +143,16 @@ textarea {
 }
 
 
+.helpertext {
+  position: relative;
+  top: -10px;
+}
+
 
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 100px;
-    background-color: black;
+    background-color: #0f9cc8;
     color: white;
     text-align: center;
     padding: 1px;
@@ -143,4 +166,44 @@ textarea {
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
     visibility: visible;
+}
+
+/* Hamburger icon stuff */
+.menu_container {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 3px;
+    background-color: rgb(130, 164, 178);
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+
+/* Rotate first bar */
+.change .bar1 {
+    -webkit-transform:  translate(0px, 9px) rotate(-45deg);
+}
+
+/* Fade out the second bar */
+.change .bar2 {
+    opacity: 0;
+}
+
+/* Rotate last bar */
+.change .bar3 {
+    -webkit-transform:  translate(0px, -9px) rotate(45deg) ;
+    /*transform: rotate(45deg) translate(0px, 0px) ;*/
+}
+
+.inline {
+  display: inline;
+}
+
+
+.hidden {
+  display: none;
 }

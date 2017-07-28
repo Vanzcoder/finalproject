@@ -1,22 +1,24 @@
 $(document).ready(function() {
 //jQuery code goes here
 
-var toggleCheck = true;
 
 function clickExpand() {
-
   /* Searches through multiple parents */
-  var crux = $(this).parents(".text").children(".cruxContent").html();
+  var button = $(this);
+
+  var cruxContent = button.parents(".buttonBar").next().children(".cruxContent").clone();
+  var cruxTitle = button.parents(".buttonBar").next().children(".cruxTitle").clone();
 
   //Hacky JS for now, formatting can come later
-  $(".cruxPopup").children(".popupText").html(crux);
+  $(".cruxPopup").children(".popupText").html(cruxContent);
+  $(".cruxPopup").children(".popupTitle").html(cruxTitle);
 
   $(".overlay").toggle();
   $(".cruxPopup").toggle();
 }
-
 /* Button selectors*/
 $(".expandButton").click(clickExpand);
+
 
 
 function onHold() {
@@ -31,8 +33,9 @@ function onHold() {
 
   $(this).parent().parent().toggleClass("onHold");
 }
-
 $(".onHoldButton").click(onHold);
+
+
 
 
 function onAccept() {
@@ -45,9 +48,21 @@ function onAccept() {
   $.post('/onaccept', {"crux_key": urlsafeKey}, function(response) {
   });
 
-  $(this).parent().parent().toggleClass("onAccept");
+  $(this).parent().toggleClass("onAccept");
 }
-
 $(".onAcceptButton").click(onAccept);
+
+
+
+
+function showMenu() {
+  var menu = $(this);
+  menu.toggleClass("change");
+  menu.parent().children(".hidden").toggle();
+  menu.parent().children(".helpertext").toggle();
+}
+$(".menu_container").click(showMenu)
+
+
 
 });

@@ -339,7 +339,7 @@ td:last-child {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 button,
 .button {
-  margin-bottom: 1rem; }
+  margin-bottom: 0.2rem; }
 input,
 textarea,
 select,
