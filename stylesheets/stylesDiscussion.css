@@ -218,7 +218,17 @@ textarea {
   display: inline;
 }
 
-
 .hidden {
   display: none;
+}
+
+.red-button {
+  border:none;
+  background-color: #f06033;
+  color: white;
+}
+
+.red-button:hover {
+  background-color: #e04210;
+  color: white;
 }

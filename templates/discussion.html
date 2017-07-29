@@ -107,14 +107,17 @@
                 <input type="hidden" name="user2ID" value="{{ discussion.user2ID }}" />
                 <input type="hidden" name="crux_title" value="{{ item.title }}" />
                 <input type="hidden" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}" />
-                <button type="submit" class="rightfloat"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+                <button type="submit" class="rightfloat button-primary"><i class="fa fa-repeat" aria-hidden="true"></i></button>
                 <span class="tooltiptext">Recurse</span>
               </form>
             </div>
             {% endif %}
 
             <!-- If it's User 2 (looking at User 1's stuff), we show the On Hold Button and Accept Buttons -->
-            {% if current_user_id == discussion.user2ID %}
+
+            <!-- Commented out while I fix AJAX here -->
+
+            <!-- {% if current_user_id == discussion.user2ID %}
             <div class="tooltip">
               <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}"><i class="fa fa-circle-o" aria-hidden="true"></i></button>
               <span class="tooltiptext">Put On Hold</span>
@@ -128,7 +131,7 @@
 
             {% else %}
 
-            {% endif %}
+            {% endif %}  -->
 
             <hr />
             <br />
@@ -159,7 +162,7 @@
         {% if current_user_id == discussion.user1ID %}
           <form action="/deletecrux" class="inline" method="post">
             <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
-            <button name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}">Delete Crux</button>
+            <button name="crux_urlsafe_key" class="red-button" value="{{ item.key.urlsafe() }}">Delete Crux</button>
           </form>
         {% endif %}
 
@@ -212,13 +215,15 @@
                 <input type="hidden" name="user2ID" value="{{ discussion.user2ID }}" />
                 <input type="hidden" name="crux_title" value="{{ item.title }}" />
                 <input type="hidden" name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}" />
-                <button type="submit" class="rightfloat"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+                <button type="submit" class="rightfloat button-primary"><i class="fa fa-repeat" aria-hidden="true"></i></button>
                 <span class="tooltiptext">Recurse</span>
               </form>
             </div>
             {% endif %}
 
-            {% if current_user_id == discussion.user1ID %}
+            <!-- Commented out while I try to fix the AJAX -->
+
+            <!-- {% if current_user_id == discussion.user1ID %}
             <div class="tooltip">
               <button class="rightfloat onHoldButton" value="{{ item.key.urlsafe() }}"><i class="fa fa-circle-o" aria-hidden="true"></i></button>
               <span class="tooltiptext">Put On Hold</span>
@@ -232,7 +237,7 @@
 
             {% else %}
 
-            {% endif %}
+            {% endif %} -->
 
             <hr />
             <br />
@@ -262,7 +267,7 @@
         {% if current_user_id == discussion.user2ID %}
           <form action="/deletecrux" class="inline" method="post">
             <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
-            <button name="crux_urlsafe_key" value="{{ item.key.urlsafe() }}">Delete Crux</button>
+            <button name="crux_urlsafe_key" class="red-button" value="{{ item.key.urlsafe() }}">Delete Crux</button>
           </form>
         {% endif %}
 
@@ -288,7 +293,7 @@
         </div>
 
         <br />
-        <div class="eleven columns">
+        <div class="seven columns">
           Content:
           <br />
           <textarea name="content" class="u-full-width"></textarea>
@@ -297,12 +302,13 @@
       </form>
 
 
-      <form action="/deletediscussion" method="post">
+      <form action="/deletediscussion" class="eleven columns" method="post">
        <input type="hidden" name="discussion_thread_ID" value="{{ discussion.discussion_thread_ID }}" />
-       <button class="rightfloat">Delete Discussion</button>
+       <button class="rightfloat red-button">Delete Discussion</button>
      </form>
 
     {% endif %}
+
 
 
   </body>
