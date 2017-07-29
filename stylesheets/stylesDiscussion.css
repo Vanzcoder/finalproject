@@ -224,7 +224,11 @@ textarea {
 
 .red-button {
   border:none;
+<<<<<<< HEAD
   background-color: #f36365;
+=======
+  background-color: #f06033;
+>>>>>>> c6fe58acc11a44af7e21cc46a6f567aeda609a28
   color: white;
 }
 
