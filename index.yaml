@@ -13,6 +13,12 @@ indexes:
 - kind: Crux
   properties:
   - name: discussion_key
+  - name: userID
+  - name: timestamp
+
+- kind: Crux
+  properties:
+  - name: discussion_key
   - name: timestamp
     direction: desc
 

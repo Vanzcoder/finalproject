@@ -108,8 +108,8 @@ class DiscussionHandler(webapp2.RequestHandler):
         discussion = discussion_key.get()
 
         #Filtering, ordering, and fetching our cruxes for each discussion.
-        cruxesByUser1 = Crux.query().filter(Crux.discussion_key == discussion_key, Crux.userID == discussion.user1ID)
-        cruxesByUser2 = Crux.query().filter(Crux.discussion_key == discussion_key, Crux.userID == discussion.user2ID)
+        cruxesByUser1 = Crux.query().filter(Crux.discussion_key == discussion_key, Crux.userID == discussion.user1ID).order(Crux.timestamp)
+        cruxesByUser2 = Crux.query().filter(Crux.discussion_key == discussion_key, Crux.userID == discussion.user2ID).order(Crux.timestamp)
 
         user1 = Profile.query().filter(Profile.userID == discussion.user1ID).get()
         user2 = Profile.query().filter(Profile.userID == discussion.user2ID).get()
@@ -355,6 +355,28 @@ class DeleteDiscussionHandler(webapp2.RequestHandler):
 
 
 
+class ProfileHandler(webapp2.RequestHandler):
+    def get(self):
+        # Boilerplate for login
+        current_user = users.get_current_user()
+        current_user_id = current_user.user_id()
+        logout_url = users.create_logout_url('/')
+        login_url = users.create_login_url('/')
+
+        # Filter for discussions that you're a part of.
+        discussions = Discussion.query().filter(Discussion.isSubLevel == False).filter(ndb.OR(Discussion.user1ID == current_user.user_id(), Discussion.user2ID == current_user.user_id())).fetch()
+
+        template_vars = {
+            "discussions" : discussions,
+            "current_user": current_user,
+            "logout_url": logout_url,
+            "login_url": login_url,
+        }
+        template = jinja_environment.get_template('templates/profile.html')
+        self.response.write(template.render(template_vars))
+
+
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/discussion', DiscussionHandler),
@@ -366,6 +388,7 @@ app = webapp2.WSGIApplication([
     ('/onhold', OnHoldHandler),
     ('/onaccept', OnAcceptHandler),
     ('/recurse', RecurseHandler),
+    ('/profile', ProfileHandler),
     ('/deletecrux', DeleteCruxHandler),
     ('/deletediscussion', DeleteDiscussionHandler)
 ], debug=True)
