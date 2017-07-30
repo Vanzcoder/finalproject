@@ -10,6 +10,7 @@
         <script src="scripts/scriptDiscussion.js"></script>
         <script src="https://use.fontawesome.com/3e4be7e583.js"></script>
 
+<!-- Favicon boilerplate -->
         <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
@@ -18,17 +19,26 @@
         <link rel="shortcut icon" href="/images/favicon.ico">
         <meta name="msapplication-config" content="/images/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
+
     <title>{{discussion.title}}</title>
   </head>
 
   <body>
 
+
+    <!--
+    ██████   ██████  ██████  ██    ██ ██████  ███████
+    ██   ██ ██    ██ ██   ██ ██    ██ ██   ██ ██
+    ██████  ██    ██ ██████  ██    ██ ██████  ███████
+    ██      ██    ██ ██      ██    ██ ██           ██
+    ██       ██████  ██       ██████  ██      ███████
+    -->
     <!-- Dark overlay for popup-->
     <div class="overlay"></div>
 
     <!--The intro popup-->
     <div class="cruxPopup">
-      <button class="rightfloat expandButton button-primary">X</button>
+      <button class="rightfloat expandButton red-button">X</button>
       <div class="popupTitle"></div>
       <div class="popupText left-pad"></div>
     </div>
@@ -36,31 +46,48 @@
 
     <!-- Popups for changing the discussion side's title -->
     <div class="discussionSide1">
+      <button class="rightfloat red-button discussion1PopupButton">X</button>
       <form action="/addside1" method="post">
         <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
         <textarea name="title" class="u-full-width" placeholder="Put Your Side's Title Here"></textarea>
-        <button type="submit" class="rightfloat button-primary">Add Side</button>
+        <button type="submit" class="rightfloat button-primary">Add Title to Side</button>
       </form>
     </div>
 
 
     <!-- Popups for changing the discussion side's title -->
     <div class="discussionSide2">
+      <button class="rightfloat red-button discussion2PopupButton">X</button>
       <form action="/addside2" method="post">
         <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
         <textarea name="title" class="u-full-width" placeholder="Put Your Side's Title Here"></textarea>
-        <button type="submit" class="rightfloat button-primary">Add Side</button>
+        <button type="submit" class="rightfloat button-primary">Add Title to Side</button>
       </form>
     </div>
 
 
 
+    <!--
+    ████████ ██ ████████ ██      ███████
+       ██    ██    ██    ██      ██
+       ██    ██    ██    ██      █████
+       ██    ██    ██    ██      ██
+       ██    ██    ██    ███████ ███████
+    -->
     <div class="title">
       <a href="{{discussion.parent_url}}"><button class="leftfloat">&larr;</button></a>
       <h4>{{discussion.title}}</h4>
     </div>
 
 
+
+    <!--
+     ██████  ██████  ██ ██████
+    ██       ██   ██ ██ ██   ██
+    ██   ███ ██████  ██ ██   ██
+    ██    ██ ██   ██ ██ ██   ██
+     ██████  ██   ██ ██ ██████
+    -->
     <!-- The stuff below allows us to handle the cruxes -->
 
     <div class="box left-pad">
@@ -83,15 +110,15 @@
         <!-- The buttons start here -->
         <!-- The first button is the Options Menu button -->
         <div class="buttonBar">
-            <div class="menu_container">
+            <!-- <div class="menu_container">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
             </div>
-            <span class="helpertext">&nbsp;Options</span>
+            <span class="helpertext">&nbsp;Options</span> -->
 
           <!-- Everything here is shown when the Options Menu is pressed -->
-          <div class="hidden">
+          <!-- <div class="hidden"> -->
 
           <!-- This is the Expand Button that everyone sees-->
             <div class="tooltip">
@@ -99,8 +126,8 @@
               <span class="tooltiptext">Expand</span>
             </div>
 
-          <!-- If either of the users are present, we show the Recurse Button -->
-            {% if current_user_id == discussion.user1ID or current_user_id == discussion.user2ID%}
+          <!-- If either of the users are present, and RECURSE hasn't happened we show the Recurse Button -->
+            {% if (current_user_id == discussion.user1ID or current_user_id == discussion.user2ID) and (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
             <div class="tooltip">
               <form action="/recurse" method="post">
                 <input type="hidden" name="user1ID" value="{{ discussion.user1ID }}" />
@@ -133,14 +160,19 @@
 
             {% endif %}  -->
 
-            <hr />
+            <!-- <hr /> -->
+            <br />
             <br />
 
-          </div>
+          <!-- </div> -->
 
         </div>
 
+
+
         <!-- This is the actual text from the crux-->
+        <!-- Actual conditional for stylings -->
+        {% if (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
         <div class = "text leftside">
           <p class = "cruxTitle">
             <span><strong>{{item.title}}</strong></span>
@@ -149,6 +181,18 @@
             {{item.content}}
           </p>
         </div>
+        {% else %}
+        <div class = "text recursedCrux">
+          <p class = "cruxTitle">
+            <span><strong>{{item.title}}</strong></span>
+          </p>
+          <p class = "cruxContent">
+            {{item.content}}
+          </p>
+        </div>
+        {% endif %}
+
+
 
         <!-- If the crux links to a discussion, then the RECURSE Button links to it-->
         {% if not (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
@@ -194,21 +238,21 @@
         {% for item in cruxesByUser2 %}
 
         <div class="buttonBar">
-            <div class="menu_container">
+            <!-- <div class="menu_container">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
             </div>
-            <span class="helpertext">&nbsp;Options</span>
+            <span class="helpertext">&nbsp;Options</span> -->
 
-          <div class="hidden">
+          <!-- <div class="hidden"> -->
 
             <div class="tooltip">
               <button class="expandButton rightfloat"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
               <span class="tooltiptext">Expand</span>
             </div>
 
-            {% if current_user_id == discussion.user1ID or current_user_id == discussion.user2ID%}
+            {% if (current_user_id == discussion.user1ID or current_user_id == discussion.user2ID) and (item.subdiscussion_key == None or item.subdiscussion_key == "None")%}
             <div class="tooltip">
               <form action="/recurse" method="post">
                 <input type="hidden" name="user1ID" value="{{ discussion.user1ID }}" />
@@ -239,14 +283,18 @@
 
             {% endif %} -->
 
-            <hr />
+            <!-- <hr /> -->
+            <br />
             <br />
 
-          </div>
+          <!-- </div> -->
 
         </div>
 
 
+
+        <!-- Styling change if the crux has been recursed -->
+        {% if (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
         <div class = "text rightside">
           <p class = "cruxTitle">
             <span><strong>{{item.title}}</strong></span>
@@ -255,12 +303,23 @@
             {{item.content}}
           </p>
         </div>
+        {% else %}
+        <div class = "text recursedCrux">
+          <p class = "cruxTitle">
+            <span><strong>{{item.title}}</strong></span>
+          </p>
+          <p class = "cruxContent">
+            {{item.content}}
+          </p>
+        </div>
+        {% endif %}
+
 
 
         {% if not (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
-        <a href="/discussion?key={{item.subdiscussion_key.urlsafe()}}"><button class="button-primary">RECURSE</button></a>
+          <a href="/discussion?key={{item.subdiscussion_key.urlsafe()}}"><button class="button-primary">RECURSE</button></a>
         {% elif not current_user_id == discussion.user2ID %}
-        <span style="display:block; height: 40px;"></span>
+          <span style="display:block; height: 40px;"></span>
         {% endif %}
 
 

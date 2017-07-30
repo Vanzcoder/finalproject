@@ -45,11 +45,8 @@
 
     <!-- Actual content for the discussions goes here -->
     <div class="left-pad">
-        <h3>Hello {{email}},</h3>
-        <h6>Here are all your discussions:</h6>
-          <p>
-            {{current_user.email}}
-          </p>
+        <h3>Hello {{current_user}},</h3>
+        <h5>Here are all your discussions:</h5>
           {% for item in discussions %}
             <a href="/discussion?key={{item.key.urlsafe()}}"><button>{{item.title}}</button></a>
             <br />

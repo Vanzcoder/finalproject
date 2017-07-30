@@ -22,21 +22,26 @@
   </head>
 
   <body>
-    <form method="post" action ="/creatediscussion"> <!-- the action says which handler we want to grab the method from-->
 
-          Title:
-        <input type="text" placeholder="Example Title" name="title"/>
-        <input type="hidden" name="user1ID" value="{{current_user_id}}">
+    <div class="left-pad">
+      <form method="post" action ="/creatediscussion"> <!-- the action says which handler we want to grab the method from-->
+          <h5>New Discussion:</h5>
 
-      <br />
+            Title:
+          <input type="text" placeholder="Example Title" name="title"/>
+          <input type="hidden" name="user1ID" value="{{current_user_id}}">
 
-          Add Other Contributor:
-        <input type="text" placeholder="example@gmail.com" name="user2email">
+        <br />
 
-      <br />
+            Add Other Contributor:
+          <input type="text" placeholder="example@gmail.com" name="user2email">
 
-      <button type="submit" class="button-primary">Add Discussion</button></p>
+        <br />
 
-    </form>
+        <button type="submit" class="button-primary">Add Discussion</button></p>
+
+      </form>
+    </div>
+
   </body>
 </html>

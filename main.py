@@ -108,8 +108,8 @@ class DiscussionHandler(webapp2.RequestHandler):
         discussion = discussion_key.get()
 
         #Filtering, ordering, and fetching our cruxes for each discussion.
-        cruxesByUser1 = Crux.query().filter(Crux.discussion_key == discussion_key, Crux.userID == discussion.user1ID).order(Crux.timestamp)
-        cruxesByUser2 = Crux.query().filter(Crux.discussion_key == discussion_key, Crux.userID == discussion.user2ID).order(Crux.timestamp)
+        cruxesByUser1 = Crux.query().filter(Crux.discussion_key == discussion_key, Crux.userID == discussion.user1ID).order(-Crux.timestamp)
+        cruxesByUser2 = Crux.query().filter(Crux.discussion_key == discussion_key, Crux.userID == discussion.user2ID).order(-Crux.timestamp)
 
         user1 = Profile.query().filter(Profile.userID == discussion.user1ID).get()
         user2 = Profile.query().filter(Profile.userID == discussion.user2ID).get()

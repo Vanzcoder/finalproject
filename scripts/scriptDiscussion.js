@@ -39,38 +39,36 @@ $(".discussion2PopupButton").click(clickTitlePopup2);
 
 
 
-function onHold() {
-  var button = $(this);
-
-  // Get the URLsafe key from the button value.
-  var urlsafeKey = $(button).val();
-
-  // Send a POST request and handle the response.
-  $.post('/onhold', {"crux_key": urlsafeKey}, function(response) {
-  });
-
-  $(this).parent().parent().toggleClass("onHold");
-}
-$(".onHoldButton").click(onHold);
-
-
-
-
-function onAccept() {
-  var button = $(this);
-
-  // Get the URLsafe key from the button value.
-  var urlsafeKey = $(button).val();
-
-  // Send a POST request and handle the response.
-  $.post('/onaccept', {"crux_key": urlsafeKey}, function(response) {
-  });
-
-  $(this).parent().toggleClass("onAccept");
-}
-$(".onAcceptButton").click(onAccept);
-
-
+// function onHold() {
+//   var button = $(this);
+//
+//   // Get the URLsafe key from the button value.
+//   var urlsafeKey = $(button).val();
+//
+//   // Send a POST request and handle the response.
+//   $.post('/onhold', {"crux_key": urlsafeKey}, function(response) {
+//   });
+//
+//   $(this).parent().parent().toggleClass("onHold");
+// }
+// $(".onHoldButton").click(onHold);
+//
+//
+//
+//
+// function onAccept() {
+//   var button = $(this);
+//
+//   // Get the URLsafe key from the button value.
+//   var urlsafeKey = $(button).val();
+//
+//   // Send a POST request and handle the response.
+//   $.post('/onaccept', {"crux_key": urlsafeKey}, function(response) {
+//   });
+//
+//   $(this).parent().toggleClass("onAccept");
+// }
+// $(".onAcceptButton").click(onAccept);
 
 
 function showMenu() {
