@@ -42,8 +42,32 @@ a {
   text-align: center;
 }
 
-.box {
+.box3 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 30px;
+}
+
+.justify {
+  text-align: justify;
+}
+
+.box1 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+.screenshot {
+  height: 400px;
+  border-radius: 10px;
+  border: 2px solid #BBBBBB;
+  border-radius: 10px;
+}
+
+.tutorialtext {
+  height: 390px;
+}
+
+.centered {
+  text-align: center;
 }

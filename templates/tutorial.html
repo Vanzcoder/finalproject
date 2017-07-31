@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/skeleton.css"/>
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="/stylesheets/styleshome.css"/>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/images/manifest.json">
+    <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <meta name="msapplication-config" content="/images/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <title>Tutorial</title>
+  </head>
+
+  <body>
+    <section align="right">
+      <a href="/"><img src="images/doublecruxlogo.png" class="logo" align="left"/></a>
+        {% if current_user %}
+          Welcome, {{current_user}}
+          <span style="display:inline-block; width: 10px;"></span>
+          <a href="/profile"><button class="button-primary">Profile</button></a>
+          <span style="display:inline-block; width: 10px;"></span>
+          <a href="{{logout_url}}"><button>Log Out</button></a>
+        {% else %}
+          Not Logged In <span style="display:inline-block; width: 10px;"></span>
+          <a href="{{login_url}}"><button>Log In</button></a>
+        {% endif %}
+      </section>
+
+      <style>
+        hr { margin: 0px; }
+      </style>
+
+
+      <span style="display:block; height: 10px;"></span>
+      <hr />
+      <span style="display:block; height: 10px;"></span>
+
+
+    <div class="left-pad">
+      <h1>Tutorial:</h1>
+
+      <div class="box1">
+
+        <div>
+          <img src="/images/Screenshot 1.png" class="screenshot"/>
+          <img src="/images/Screenshot 2.png" class="screenshot"/>
+          <img src="/images/Screenshot 3.png" class="screenshot"/>
+          <img src="/images/Screenshot 4.png" class="screenshot"/>
+          <img src="/images/Screenshot 5.png" class="screenshot"/>
+          <img src="/images/Screenshot 6.png" class="screenshot"/>
+          <img src="/images/Screenshot 7.png" class="screenshot"/>
+          <img src="/images/Screenshot 8.png" class="screenshot"/>
+        </div>
+
+        <div>
+          <p class="tutorialtext"><strong>Step 1:</strong> Click on the Log In button and sign in with an existing Google account.</p>
+          <p class="tutorialtext"><strong>Step 2:</strong> Click Add New Discussion to get started.</p>
+          <p class="tutorialtext"><strong>Step 3:</strong> Enter in a title and your partner's email. Note that they need to have logged in before at least once in order for you to add them to the discussion.</p>
+          <p class="tutorialtext"><strong>Step 4:</strong> Once you navigate over to your Profile, you'll see a list of all discussions you are a part of. Clicking on one will take you to that discussion's page.</p>
+          <p class="tutorialtext"><strong>Step 5:</strong> From there, you can add new Cruxes to the discussion, change your side's title, and delete existing cruxes.
+          <p class="tutorialtext"><strong>Step 6:</strong> The blue Recurse button allows you to take a Crux and start a new subdiscussion that will be linked to the Crux.</p>
+          <p class="tutorialtext"><strong>Step 7:</strong> In any nested subdiscussion, the back button will bring you up a level.</p>
+          <p class="tutorialtext"><strong>Step 8:</strong> Once you've recursed once, a new Recurse button will appear under the corresponding Crux that allows anyone viewing to also travel deeper into the discussion.</p>
+        </div>
+
+      </div>
+
+      <h4 class="centered">You're all ready to start Double Cruxing!</h4>
+
+    </div>
+
+  </body>
+
+</html>

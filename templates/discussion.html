@@ -202,6 +202,7 @@
         <span style="display:block; height: 40px;"></span>
         {% endif %}
 
+        <span style="display:inline-block; width: 10px;"></span>
 
         <!-- If it's User1 looking at the User1 post, then the Delete Crux button shows -->
         {% if current_user_id == discussion.user1ID %}
@@ -328,6 +329,7 @@
           <span style="display:block; height: 40px;"></span>
         {% endif %}
 
+        <span style="display:inline-block; width: 10px;"></span>
 
         {% if current_user_id == discussion.user2ID %}
           <form action="/deletecrux" class="inline" method="post">
