@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" href="/stylesheets/styleshome.css"/>
+        <link type="text/css" rel="stylesheet" href="/stylesheets/skeleton.css"/>
+        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://use.fontawesome.com/3e4be7e583.js"></script>
+
+    <!-- Favicon boilerplate -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+        <link rel="manifest" href="/images/manifest.json">
+        <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="/images/favicon.ico">
+        <meta name="msapplication-config" content="/images/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+    <title>About</title>
+  </head>
+
+  <body>
+
+
+    <section align="right">
+      <a href="/"><img src="images/doublecruxlogo.png" class="logo" align="left"/></a>
+        {% if current_user %}
+          Welcome, {{current_user}}
+          <span style="display:inline-block; width: 10px;"></span>
+          <a href="/profile"><button class="button-primary">Profile</button></a>
+          <span style="display:inline-block; width: 10px;"></span>
+          <a href="{{logout_url}}"><button>Log Out</button></a>
+        {% else %}
+          Not Logged In <span style="display:inline-block; width: 10px;"></span>
+          <a href="{{login_url}}"><button>Log In</button></a>
+        {% endif %}
+      </section>
+
+      <style>
+        hr { margin: 0px; }
+      </style>
+
+
+      <span style="display:block; height: 10px;"></span>
+      <hr />
+      <span style="display:block; height: 10px;"></span>
+
+    <div class="left-pad">
+
+      <div>
+        <h1>About</h1>
+      </div>
+
+
+      <p>Double Crux was a final project for <a href="https://edu.google.com/resources/programs/computer-science-summer-institute/">Google CSSI 2017</a>.
+      </p>
+
+      <p>The code is available on <a href="https://github.com/Vanzcoder/finalproject">GitHub</a>.</p>
+
+      <p>The stylings are based off the <a href="https://github.com/dhg/Skeleton#colophon">Skeleton</a> boilerplate.</p>
+
+      <br />
+
+      <p>The actual double crux philosophy is from the <a href="http://rationality.org/">Center for Applied Rationality</a>. There is an extensive writeup on exactly how it works <a href="http://rationality.org/resources/updates/2016/double-crux">here</a>.
+      </p>
+    </div>
+
+  </body>
+
+</html>

@@ -5,7 +5,7 @@
 li {
   float: left;
   display: block;
-  width: 100px;
+  width: 150px;
   text-align: center;
 }
 
@@ -13,10 +13,37 @@ li {
    margin: 0px;
  }
 
-.logo {
-  width: 100px;
-}
 
 .logotitle {
-  display: inline;
+  display: inline-block;
+  position: absolute;
+  top: 80px;
+}
+
+a {
+  text-decoration:  none;
+}
+
+.logo {
+  width: 40px;
+}
+
+.biglogo {
+  width: 80px;
+  display: inline-block;
+}
+
+.profilepic {
+  width:13em;
+  border-radius:100%;
+}
+
+.profilewords {
+  text-align: center;
+}
+
+.box {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 30px;
 }

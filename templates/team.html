@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/styleshome.css"/>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/skeleton.css"/>
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/3e4be7e583.js"></script>
+
+<!-- Favicon boilerplate -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/images/manifest.json">
+    <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <meta name="msapplication-config" content="/images/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+<title>Our Team</title>
+</head>
+
+<body>
+
+
+<section align="right">
+  <a href="/"><img src="images/doublecruxlogo.png" class="logo" align="left"/></a>
+    {% if current_user %}
+      Welcome, {{current_user}}
+      <span style="display:inline-block; width: 10px;"></span>
+      <a href="/profile"><button class="button-primary">Profile</button></a>
+      <span style="display:inline-block; width: 10px;"></span>
+      <a href="{{logout_url}}"><button>Log Out</button></a>
+    {% else %}
+      Not Logged In <span style="display:inline-block; width: 10px;"></span>
+      <a href="{{login_url}}"><button>Log In</button></a>
+    {% endif %}
+  </section>
+
+  <style>
+    hr { margin: 0px; }
+  </style>
+
+
+  <span style="display:block; height: 10px;"></span>
+  <hr />
+  <span style="display:block; height: 10px;"></span>
+
+<div class="left-pad">
+
+  <div>
+    <h1>Our Team</h1>
+  </div>
+
+  <br />
+  <br />
+
+<div class="box">
+
+  <div class="profilewords">
+    <img src="/images/Owen.jpg" class="profilepic"/>
+    <h5>Owen Shen</h5>
+    <p>
+      Owen is a computer science student at UC San Diego. He is a part of the <a href="https://www.effectivealtruism.org/">effective altruism</a> movement, a global community focused on trying to find the best ways to to help others. He writes on <a href="https://mindlevelup.wordpress.com/">mindlevelup</a>, a weekly blog with essays on motivation and cognition.
+    </p>
+  </div>
+
+  <div class="profilewords">
+    <img src="/images/Vanessa.jpg" class="profilepic"/>
+    <h5>Vanessa Thompson</h5>
+    <p>
+      Vanessa is a UC Berkeley student studying applied statistics and economics. Her goal for the future is to use her mathematics and analytics background to work for environmental and social causes. Her drive to mitigate climate change came from her travels to 42 nations before the age of 18. As a world traveler, artist, and mathematician, Vanessa writes about new methods for environmental, educational, minority, and youth activism on the Huffington Post. She hopes to explore the world of coding and data analysis for social good throughout college and her career.
+    </p>
+  </div>
+
+  <div class="profilewords">
+    <img src="/images/David.jpg" class="profilepic"/>
+    <h5>David Ding</h5>
+      <p>
+        David studies computer science at Northwestern University. He is passionate about teaching others through his club, Computer Engineers of the Next Generation, which aims to expose underprivileged students to basic computer science concepts through the beginner programming language scratch. In his free time, he enjoys playing basketball with his friends, reading, Netflix, and eating tacos.
+      </p>
+  </div>
+
+</div>
+
+  </body>
+
+</html>

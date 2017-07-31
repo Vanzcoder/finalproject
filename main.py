@@ -377,6 +377,44 @@ class ProfileHandler(webapp2.RequestHandler):
 
 
 
+class AboutHandler(webapp2.RequestHandler):
+    def get(self):
+        # Boilerplate for login
+        current_user = users.get_current_user()
+        current_user_id = current_user.user_id()
+        logout_url = users.create_logout_url('/')
+        login_url = users.create_login_url('/')
+
+        template_vars = {
+            "current_user": current_user,
+            "logout_url": logout_url,
+            "login_url": login_url,
+        }
+
+        template = jinja_environment.get_template('templates/about.html')
+        self.response.write(template.render(template_vars))
+
+
+
+class TeamHandler(webapp2.RequestHandler):
+    def get(self):
+        # Boilerplate for login
+        current_user = users.get_current_user()
+        current_user_id = current_user.user_id()
+        logout_url = users.create_logout_url('/')
+        login_url = users.create_login_url('/')
+
+        template_vars = {
+            "current_user": current_user,
+            "logout_url": logout_url,
+            "login_url": login_url,
+        }
+
+        template = jinja_environment.get_template('templates/team.html')
+        self.response.write(template.render(template_vars))
+
+
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/discussion', DiscussionHandler),
@@ -390,5 +428,7 @@ app = webapp2.WSGIApplication([
     ('/recurse', RecurseHandler),
     ('/profile', ProfileHandler),
     ('/deletecrux', DeleteCruxHandler),
-    ('/deletediscussion', DeleteDiscussionHandler)
+    ('/deletediscussion', DeleteDiscussionHandler),
+    ('/about', AboutHandler),
+    ('/team', TeamHandler),
 ], debug=True)
