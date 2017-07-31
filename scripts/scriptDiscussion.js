@@ -6,12 +6,14 @@ function clickExpand() {
   /* Searches through multiple parents */
   var button = $(this);
 
-  var cruxContent = button.parents(".buttonBar").next().children(".cruxContent").clone();
-  var cruxTitle = button.parents(".buttonBar").next().children(".cruxTitle").clone();
+  var cruxTitle = button.children(".cruxTitle").text();
+  var cruxContent = button.children(".cruxContent").text();
 
   //Hacky JS for now, formatting can come later
-  $(".cruxPopup").children(".popupText").text(cruxContent);
   $(".cruxPopup").children(".popupTitle").text(cruxTitle);
+  $(".cruxPopup").children(".popupText").text(cruxContent);
+
+  $(".popupTitle").css("font-weight","Bold");
 
   $(".overlay").toggle();
   $(".cruxPopup").toggle();
@@ -26,7 +28,7 @@ $(".expandButton").click(clickExpand);
 function clickTitlePopup1() {
   title = $("#side1Title").text();
 
-  $("#title1Popup").text("title");
+  $("#title1Popup").text(title);
 
   $(".overlay").toggle();
   $(".discussionSide1").toggle();
