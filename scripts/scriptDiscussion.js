@@ -10,8 +10,8 @@ function clickExpand() {
   var cruxTitle = button.parents(".buttonBar").next().children(".cruxTitle").clone();
 
   //Hacky JS for now, formatting can come later
-  $(".cruxPopup").children(".popupText").html(cruxContent);
-  $(".cruxPopup").children(".popupTitle").html(cruxTitle);
+  $(".cruxPopup").children(".popupText").text(cruxContent);
+  $(".cruxPopup").children(".popupTitle").text(cruxTitle);
 
   $(".overlay").toggle();
   $(".cruxPopup").toggle();
@@ -20,8 +20,14 @@ function clickExpand() {
 $(".expandButton").click(clickExpand);
 
 
+// Test out these updated buttons to see if the text from the title will show.
+
 
 function clickTitlePopup1() {
+  title = $("#side1Title").text();
+
+  $("#title1Popup").text("title");
+
   $(".overlay").toggle();
   $(".discussionSide1").toggle();
 }
@@ -31,6 +37,10 @@ $(".discussion1PopupButton").click(clickTitlePopup1);
 
 
 function clickTitlePopup2() {
+  title = $("#side2Title").text();
+
+  $("#title2Popup").text(title);
+
   $(".overlay").toggle();
   $(".discussionSide2").toggle();
 }

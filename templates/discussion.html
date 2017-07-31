@@ -49,7 +49,7 @@
       <button class="rightfloat red-button discussion1PopupButton">X</button>
       <form action="/addside1" method="post">
         <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
-        <textarea name="title" class="u-full-width" placeholder="Put Your Side's Title Here"></textarea>
+        <textarea name="title" class="u-full-width" id="title1Popup"></textarea>
         <button type="submit" class="rightfloat button-primary">Add Title to Side</button>
       </form>
     </div>
@@ -60,7 +60,7 @@
       <button class="rightfloat red-button discussion2PopupButton">X</button>
       <form action="/addside2" method="post">
         <input type="hidden" name="discussion_key" value="{{ discussion.key.urlsafe() }}" />
-        <textarea name="title" class="u-full-width" placeholder="Put Your Side's Title Here"></textarea>
+        <textarea name="title" class="u-full-width" id="title2Popup"></textarea>
         <button type="submit" class="rightfloat button-primary">Add Title to Side</button>
       </form>
     </div>
@@ -95,7 +95,8 @@
     <!-- This is the jinja that handles what goes on the left side of the page -->
       <div class="left">
         Contributor 1: {{user1.email}}
-        <h5><strong>{{discussion.title_user1}}</strong></h5>
+
+        <h5 id="side1Title"><strong>{{discussion.title_user1}}</strong></h5>
 
         {% if current_user_id == discussion.user1ID %}
         <button class="discussion1PopupButton">Edit Side Title</button>
@@ -121,10 +122,10 @@
           <!-- <div class="hidden"> -->
 
           <!-- This is the Expand Button that everyone sees-->
-            <div class="tooltip">
+            <!-- <div class="tooltip">
               <button class="expandButton rightfloat"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
               <span class="tooltiptext">Expand</span>
-            </div>
+            </div> -->
 
           <!-- If either of the users are present, and RECURSE hasn't happened we show the Recurse Button -->
             {% if (current_user_id == discussion.user1ID or current_user_id == discussion.user2ID) and (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
@@ -173,7 +174,7 @@
         <!-- This is the actual text from the crux-->
         <!-- Actual conditional for stylings -->
         {% if (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
-        <div class = "text leftside">
+        <div class = "text leftside expandButton">
           <p class = "cruxTitle">
             <span><strong>{{item.title}}</strong></span>
           </p>
@@ -182,7 +183,7 @@
           </p>
         </div>
         {% else %}
-        <div class = "text recursedCrux">
+        <div class = "text recursedCrux expandButton">
           <p class = "cruxTitle">
             <span><strong>{{item.title}}</strong></span>
           </p>
@@ -221,10 +222,15 @@
 
 
 
+
       <!-- Ditto, but with 1 and 2 swapped -->
       <div class="right">
         Contributor 2: {{user2.email}}
-        <h5><strong>{{discussion.title_user2}}</strong></h5>
+
+        <div id="side2Title">
+          <h5><strong>{{discussion.title_user2}}</strong></h5>
+        </div>
+
 
         {% if current_user_id == discussion.user2ID %}
           <button class="discussion2PopupButton">Edit Side Title</button>
@@ -247,10 +253,10 @@
 
           <!-- <div class="hidden"> -->
 
-            <div class="tooltip">
+            <!-- <div class="tooltip">
               <button class="expandButton rightfloat"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
               <span class="tooltiptext">Expand</span>
-            </div>
+            </div> -->
 
             {% if (current_user_id == discussion.user1ID or current_user_id == discussion.user2ID) and (item.subdiscussion_key == None or item.subdiscussion_key == "None")%}
             <div class="tooltip">
@@ -295,7 +301,7 @@
 
         <!-- Styling change if the crux has been recursed -->
         {% if (item.subdiscussion_key == None or item.subdiscussion_key == "None") %}
-        <div class = "text rightside">
+        <div class = "text rightside expandButton">
           <p class = "cruxTitle">
             <span><strong>{{item.title}}</strong></span>
           </p>
@@ -304,7 +310,7 @@
           </p>
         </div>
         {% else %}
-        <div class = "text recursedCrux">
+        <div class = "text recursedCrux expandButton">
           <p class = "cruxTitle">
             <span><strong>{{item.title}}</strong></span>
           </p>

@@ -73,6 +73,11 @@ button {
 }
 
 
+.expandButton {
+  cursor: pointer;
+  cursor: hand;
+}
+
 /*
 ████████ ██ ████████ ██      ███████
    ██    ██    ██    ██      ██
