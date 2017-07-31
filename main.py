@@ -359,7 +359,10 @@ class ProfileHandler(webapp2.RequestHandler):
     def get(self):
         # Boilerplate for login
         current_user = users.get_current_user()
-        current_user_id = current_user.user_id()
+        if (current_user == None):
+            current_user_id = 'none'
+        else:
+            current_user_id = current_user.user_id()
         logout_url = users.create_logout_url('/')
         login_url = users.create_login_url('/')
 
@@ -381,7 +384,10 @@ class AboutHandler(webapp2.RequestHandler):
     def get(self):
         # Boilerplate for login
         current_user = users.get_current_user()
-        current_user_id = current_user.user_id()
+        if (current_user == None):
+            current_user_id = 'none'
+        else:
+            current_user_id = current_user.user_id()
         logout_url = users.create_logout_url('/')
         login_url = users.create_login_url('/')
 
@@ -400,7 +406,10 @@ class TeamHandler(webapp2.RequestHandler):
     def get(self):
         # Boilerplate for login
         current_user = users.get_current_user()
-        current_user_id = current_user.user_id()
+        if (current_user == None):
+            current_user_id = 'none'
+        else:
+            current_user_id = current_user.user_id()
         logout_url = users.create_logout_url('/')
         login_url = users.create_login_url('/')
 
