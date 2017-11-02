@@ -182,7 +182,7 @@ class CreateDiscussionHandler(webapp2.RequestHandler):
         profile_query = Profile.query().filter(Profile.email == user2email)
         user2 = profile_query.get()
         if not user2:
-            self.redirect('/')# ***redirect to error page
+            self.redirect('/')# ***redirect to error page. Assignment 1: create another Handler in order to allow users to "invite" a new user instead of taking them to an assigned error page
         else:
             discussion_thread_ID_object = DiscussionThreadID(title=title)
             discussion_thread_ID_object.put()
